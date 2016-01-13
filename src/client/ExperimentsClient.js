@@ -3,6 +3,6 @@
  */
 
 import React from "react";
-import LoremIpsum from "../shared/components/LoremIpsum";
+import LoremIpsum from "../shared/components/Experiments";
 
 React.render(<LoremIpsum/>, document.getElementById('app'));//

@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 @import url(https://fonts.googleapis.com/css?family=Poiret+One);
 @import 'config.scss';
-@import 'frontpage.scss';
 
 .header {
   background-color: transparent !important;
@@ -90,43 +89,3 @@ footer {
 .mb10 {
   margin-bottom: 10px;
 }
-
-//TODO: Move to weather css.
-//Fade in for share your geolocation
-.fade-in {
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 2s; /* Firefox < 16 */
-  -ms-animation: fadein 2s; /* Internet Explorer */
-  -o-animation: fadein 2s; /* Opera < 12.1 */
-  animation: fadein 2s;
-}
-
-@keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Firefox < 16 */
-@-moz-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Internet Explorer */
-@-ms-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Opera < 12.1 */
-@-o-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-//TODO: RESET or make experience more similar on both chrome and firefox

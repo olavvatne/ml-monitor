@@ -2,6 +2,7 @@ import express from "express";
 import engine  from "ejs-locals";
 import favicon from 'serve-favicon';
 import controllers from './controllers';
+import serverApi from './api';
 import sassMiddleware from 'node-sass-middleware';
 import sass from 'node-sass';
 import fs from 'fs';
@@ -79,6 +80,7 @@ if(app.get('env') === 'production') {
     });
 }
 
+serverApi.set(app);
 controllers.set(app);
 
 var server = app.listen(app.get("port"), function () {

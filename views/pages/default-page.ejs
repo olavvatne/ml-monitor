@@ -1,0 +1,7 @@
+<% layout('../base') -%>
+<% block('title', title + " - ") %>
+<div>
+    <div id="app"><%- reactContent %></div>
+</div>
+
+<script async src="<%= reactEntryPath %>/js/<%= reactScript %>.entry.js"></script>
