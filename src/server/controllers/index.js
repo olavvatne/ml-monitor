@@ -20,6 +20,7 @@ module.exports.set = function(app) {
     };
 
     app.get('/', function (req, res) {
+        //TODO: Duplicate code, can possibly use callback functions for these two, to reduce duplicate code.
         var db = req.db;
         var collection = db.get('experimentlist');
         collection.find({ running : {$eq: true}},{fields: {events: {$slice: -10}}},function(e,docs){

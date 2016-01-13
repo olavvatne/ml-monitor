@@ -5,7 +5,7 @@ module.exports.set = function(app) {
         var db = req.db;
         var collection = db.get('experimentlist');
         //Events is excluded, because of potensial size in such a listing.
-        collection.find({},{fields: {events: 0}},function(e,docs){
+        collection.find({},{fields: {events: 0, configuration: 0}},function(e,docs){
             res.json(docs);
         });
     });
@@ -67,12 +67,13 @@ module.exports.set = function(app) {
     app.post('/job/start', function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        req.body.running = true;
-        req.body.date_start = new Date();
-        req.body.events = [];
-        req.body.nr_events = 0;
+        var job = {running: true, date_start: new Date(), events: [], nr_events: 0};
+        if(req.body) {
+            job.configuration = req.body;
+        }
+        
         var collection = db.get('experimentlist');
-        collection.insert(req.body, function(err, result){
+        collection.insert(job, function(err, result){
             res.send(
                 (err === null) ? { id: result._id } : { msg: err }
             );

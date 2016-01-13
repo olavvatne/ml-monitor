@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 @import url(https://fonts.googleapis.com/css?family=Poiret+One);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
 @import 'config.scss';
 
 .header {
@@ -18,12 +18,9 @@
       font-size: 34px;
       line-height: 40px;
       text-decoration-color: black !important;
-      font-family: 'Poiret One';
+      font-family: 'Poiret One', sans-serif;
       text-decoration: none;
 
-      :hover {
-        color: $element-main-color !important;
-      }
 
 
       h1 {
@@ -31,6 +28,19 @@
         margin: 0px !important;
       }
     }
+  }
+
+  .header__link {
+    float: right;
+    font-size: 20px;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+
+  }
+  :hover {
+    color: $element-main-color !important;
   }
 }
 
@@ -46,7 +56,7 @@ body,html {
 
 body {
   background-color: $bg-color !important;
-  font-family:'Roboto', "Helvetica Neue", Helvetica, Arial, Verdana, "Trebuchet MS" !important;
+  font-family:'Roboto', "Open Sans Condensed", Helvetica, Arial, Verdana, "Trebuchet MS" !important;
 }
 
 .content {
