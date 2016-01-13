@@ -1,0 +1,28 @@
+<% layout('../base') -%>
+<% block('title', "")%>
+<% block('metaDescription', "A collection of simple online tools to make you feel less unuseful.")%>
+
+<div class="mui-panel" style="padding:0px">
+    <div class="jumbo">
+        <div class="mui-container">
+            <h2 class="jumbo__title">Make yourself less unuseful!</h2>
+            <p class="jumbo__text">Simple tools for smart people</p>
+        </div>
+
+    </div>
+</div>
+<div class="mui-container">
+    <div class="row">
+        <% for(var i=0; i < tools.length; i++) { %>
+        <div class="mui-col-md-3 mui-col-sm-4  tool-thumb">
+                <div>
+                <a href="<%= tools[i].url %>" class="tool-thumb__content">
+                    <img src="<%= tools[i].image %>" >
+                    <p><%= tools[i].title %></p>
+                </a>
+            </div>
+        </div>
+        <% } %>
+
+    </div>
+</div>
