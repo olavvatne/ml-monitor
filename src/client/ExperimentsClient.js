@@ -3,6 +3,6 @@
  */
 
 import React from "react";
-import LoremIpsum from "../shared/components/Experiments";
-
-React.render(<LoremIpsum/>, document.getElementById('app'));//
+import Experiments from "../shared/components/Experiments";
+var initData = document.getElementById("init").text;
+React.render(<Experiments data={initData}/>, document.getElementById('app'));//

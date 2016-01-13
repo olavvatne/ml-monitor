@@ -1,5 +1,6 @@
 
 import React from "react";
+
 class Frontpage extends React.Component {
 
     constructor() {
@@ -17,6 +18,7 @@ class Frontpage extends React.Component {
         return (
             <div className="mui-container">
                 <h1>Frontpage</h1>
+                <pre>{this.props.data}</pre>
             </div>
         );
     }

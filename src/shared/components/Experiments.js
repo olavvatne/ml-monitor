@@ -19,10 +19,14 @@ class Experiments extends React.Component {
 
 
     render() {
+        var initData = JSON.parse(this.props.data);
+        var jobs = initData.map( job => {
+            return (<p>{job.nr_events}</p>);
+        });
         return (
             <div className="mui-container">
-                    <h1>Experiments</h1>
-
+                <h1>Experiments</h1>
+                {jobs}
             </div>
         );
     }

@@ -38,7 +38,7 @@ module.exports.set = function(app) {
                 }
             }
             else {
-                res.json({msg: "Not found", running: false})
+                res.send({msg: "Not found", running: false});
             }
         });
     });
@@ -81,9 +81,13 @@ module.exports.set = function(app) {
 
 
     //For interface. Returns running job. Called from front page.
-    app.get('/job/running', function (req, res) {
-        var tempData = {id: 3, date: "2015-2-2"};
-        res.send(tempData);
+    app.get('/current-job', function (req, res) {
+        //TODO: Events or not, or the last ten events or something
+        var db = req.db;
+        var collection = db.get('experimentlist');
+        collection.find({ running : {$eq: true}},{fields: {events: {$slice: -10}}},function(e,docs){
+            res.json(docs);
+        });
     });
 
 

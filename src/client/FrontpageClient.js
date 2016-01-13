@@ -1,4 +1,4 @@
 import React from "react";
 import Frontpage from "../shared/components/Frontpage";
-
-React.render(<Frontpage/>, document.getElementById('app'));//
+var initData = document.getElementById("init").text;
+React.render(<Frontpage data={initData}/>, document.getElementById('app'));//
