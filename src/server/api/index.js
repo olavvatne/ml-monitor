@@ -30,7 +30,7 @@ module.exports.set = function(app) {
             if(docs.length>0) {
                 var job = docs[0];
                 if(job.running === true) {
-                    collection.update({'_id': jobId}, {$set: {running: false, stop_date: new Date()}});
+                    collection.update({'_id': jobId}, {$set: {running: false, date_stop: new Date()}});
                     res.send({msg: "Experiment has been stopped", running: false});
                 }
                 else {
@@ -45,9 +45,21 @@ module.exports.set = function(app) {
 
 
     //Machine learning algo use this interface to send progress report. Data stored in db.
-    app.post('/job/update', function (req, res) {
+    app.post('/job/:id/update', function (req, res) {
+        //TODO: Validation of body
+        var db = req.db;
+        var jobId = req.params.id;
+        req.body.date_recorded = new Date();
+        var collection = db.get('experimentlist');
+        collection.update({_id: jobId}, {$push:{events: req.body}, $inc: {nr_events: 1}}, function(err, result) {
+            if(!err) {
+                res.send({msg: "Added event"});
+            }
+            else {
+                res.send({msg: "Could not add the event"});
+            }
+        });
 
-        res.send({a: 1});
     });
 
 
@@ -56,8 +68,9 @@ module.exports.set = function(app) {
         //TODO: Validation of body
         var db = req.db;
         req.body.running = true;
-        req.body.start_date = new Date();
+        req.body.date_start = new Date();
         req.body.events = [];
+        req.body.nr_events = 0;
         var collection = db.get('experimentlist');
         collection.insert(req.body, function(err, result){
             res.send(
