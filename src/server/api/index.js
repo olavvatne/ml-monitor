@@ -2,12 +2,21 @@ module.exports.set = function(app) {
 
     //For experiments list in interface.
     app.get('/job', function (req, res) {
-        var tempExperiments = [
-            {id: 1, date: "2015-2-2"},
-            {id: 2, date: "2015-2-2"},
-            {id: 3, date: "2015-2-2"},
-        ];
-        res.send(tempExperiments);
+        var db = req.db;
+        var collection = db.get('experimentlist');
+        collection.find({},{},function(e,docs){
+            res.json(docs);
+        });
+    });
+
+    app.get('/job/:id', function (req, res) {
+        var db = req.db;
+        var jobId = req.params.id;
+        var collection = db.get('experimentlist');
+        collection.find({ '_id' : jobId },{},function(e,docs){
+            console.log(docs);
+            res.json(docs);
+        });
     });
 
     //Interface endpoint. Stopping current running match. If no running match, no change.
@@ -24,8 +33,15 @@ module.exports.set = function(app) {
 
     //Machine learning algo need to start a new job first. Returns a job id.
     app.post('/job/start', function (req, res) {
-
-        res.send({a: 1});
+        //TODO: Validation of body
+        var db = req.db;
+        req.body.running = true;
+        var collection = db.get('experimentlist');
+        collection.insert(req.body, function(err, result){
+            res.send(
+                (err === null) ? { id: result._id } : { msg: err }
+            );
+        });
     });
 
     //For interface. Returns running job. Called from front page.
@@ -36,9 +52,12 @@ module.exports.set = function(app) {
 
     //For machine learning algo. Retrives the stop status of the running job. If user have pressed stop, this will return
     //a stop message.
-    app.get('/job/stopstatus', function (req, res) {
-        var tempData = {id: 3, date: "2015-2-2"}
-        res.send(tempData);
+    app.get('/job/stopstatus:id', function (req, res) {
+        var collection = db.get('experimentlist');
+        collection.find({ '_id' : jobId },{},function(e,docs){
+            console.log(docs);
+            res.json(docs);
+        });
     });
 
 };

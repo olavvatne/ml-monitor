@@ -6,9 +6,11 @@ import serverApi from './api';
 import sassMiddleware from 'node-sass-middleware';
 import sass from 'node-sass';
 import fs from 'fs';
+import mongo from 'mongod';
+import monk from 'monk';
 var bodyParser = require('body-parser');
 
-//TODO: Better build /dev configuration
+const db = monk('localhost:27017/ml-monitor')
 const app = express();
 
 app.set("env", process.env.NODE_ENV || "development");
@@ -79,9 +81,18 @@ if(app.get('env') === 'production') {
         }
     });
 }
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 serverApi.set(app);
 controllers.set(app);
+
+// ===== KEEP THIS AT THE BOTTOM ======= , handles 404 errors
+app.use(function(req, res, next){
+    res.status(404).render('pages/404', {title: "Page not found", environment: getEnvironment().environment });
+});
 
 var server = app.listen(app.get("port"), function () {
     var host = server.address().address;
