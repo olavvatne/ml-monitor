@@ -4,31 +4,33 @@ module.exports.set = function(app) {
     app.get('/job', function (req, res) {
         var db = req.db;
         var collection = db.get('experimentlist');
-        collection.find({},{},function(e,docs){
+        //Events is excluded, because of potensial size in such a listing.
+        collection.find({},{fields: {events: 0}},function(e,docs){
             res.json(docs);
         });
     });
 
+    //Get overview of specific job.
     app.get('/job/:id', function (req, res) {
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
-        collection.find({ '_id' : jobId },{},function(e,docs){
+        collection.find({ _id : jobId },{},function(e,docs){
             res.json(docs);
         });
     });
 
+
     //Interface endpoint. Stopping current running match. If no running match, no change.
     app.post('/job/:id/stop', function (req, res) {
-        console.log("STOPPING");
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
-        collection.find({ '_id' : jobId },{},function(e,docs){
+        collection.find({ _id : jobId },{},function(e,docs){
             if(docs.length>0) {
                 var job = docs[0];
                 if(job.running === true) {
-                    //collection.update({'_id': jobId}, {$set: {running: false}});
+                    collection.update({'_id': jobId}, {$set: {running: false, stop_date: new Date()}});
                     res.send({msg: "Experiment has been stopped", running: false});
                 }
                 else {
@@ -41,17 +43,21 @@ module.exports.set = function(app) {
         });
     });
 
+
     //Machine learning algo use this interface to send progress report. Data stored in db.
     app.post('/job/update', function (req, res) {
 
         res.send({a: 1});
     });
 
+
     //Machine learning algo need to start a new job first. Returns a job id.
     app.post('/job/start', function (req, res) {
         //TODO: Validation of body
         var db = req.db;
         req.body.running = true;
+        req.body.start_date = new Date();
+        req.body.events = [];
         var collection = db.get('experimentlist');
         collection.insert(req.body, function(err, result){
             res.send(
@@ -60,11 +66,13 @@ module.exports.set = function(app) {
         });
     });
 
+
     //For interface. Returns running job. Called from front page.
     app.get('/job/running', function (req, res) {
         var tempData = {id: 3, date: "2015-2-2"};
         res.send(tempData);
     });
+
 
     //For machine learning algo. Retrives the stop status of the running job. If user have pressed stop, this will return
     //a stop message.
