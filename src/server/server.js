@@ -89,10 +89,7 @@ app.use(function(req,res,next){
 serverApi.set(app);
 controllers.set(app);
 
-// ===== KEEP THIS AT THE BOTTOM ======= , handles 404 errors
-app.use(function(req, res, next){
-    res.status(404).render('pages/404', {title: "Page not found", environment: getEnvironment().environment });
-});
+
 
 var server = app.listen(app.get("port"), function () {
     var host = server.address().address;
