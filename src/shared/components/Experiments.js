@@ -2,7 +2,8 @@
  * Created by Olav on 10/9/2015.
  */
 import React from "react";
-import ExperimentControl from './libs/ExperimentControl.js';
+import ExperimentHistory from './libs/ExperimentHistory.js';
+import ExperimentList from './libs/ExperimentList.js';
 
 class Experiments extends React.Component {
 
@@ -19,11 +20,14 @@ class Experiments extends React.Component {
 
     render() {
         var experiments = this.state.experiments.map((experiment) => {
-            return (<ExperimentControl experiment={experiment} key={experiment._id}></ExperimentControl>)
+            return (
+                <ExperimentList experiment={experiment} key={experiment._id}>
+                    <ExperimentHistory experiment={experiment} key={experiment._id} />
+                </ExperimentList>)
         });
         return (
             <div className="mui-container">
-                <h1>Running experiment</h1>
+                <h1>Experiment history</h1>
                 {experiments}
             </div>
         );

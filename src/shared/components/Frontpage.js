@@ -1,6 +1,7 @@
 
 import React from "react";
 import ExperimentControl from './libs/ExperimentControl.js';
+import ExperimentList from './libs/ExperimentList.js';
 
 class Frontpage extends React.Component {
 
@@ -19,7 +20,11 @@ class Frontpage extends React.Component {
 
     render() {
         var experiments = this.state.experiments.map((experiment) => {
-            return (<ExperimentControl experiment={experiment} key={experiment._id}></ExperimentControl>)
+            return (
+                <ExperimentList experiment={experiment} key={experiment._id}>
+                    <ExperimentControl experiment={experiment} key={experiment._id} />
+                </ExperimentList>
+            )
         });
         return (
             <div className="mui-container">
