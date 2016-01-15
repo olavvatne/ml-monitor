@@ -1,6 +1,5 @@
 
 import React from "react";
-import UIButton from './mui/UIButton.js';
 import ExperimentControl from './libs/ExperimentControl.js';
 
 class Frontpage extends React.Component {
@@ -11,13 +10,12 @@ class Frontpage extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({experiments: JSON.parse(this.props.data)})
+        var jobs = JSON.parse(this.props.data);
+        if(jobs.length > 0) {
+            jobs[0].first = true;
+        }
+        this.setState({experiments: jobs})
     }
-    componentDidMount() {
-
-    }
-
-
 
     render() {
         var experiments = this.state.experiments.map((experiment) => {

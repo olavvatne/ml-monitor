@@ -12,10 +12,11 @@ class UIButton extends React.Component {
     render() {
 
         var primary = this.props.primary ? "primary" : "";
+        var danger = this.props.danger ? "danger" : "";
 
         return (
             <button className="mui-btn"
-                    data-mui-color={primary}
+                    data-mui-color={primary + danger}
                     data-mui-style="raised"
                 onClick={this.props.onClick}
                 style={this.props.style}>

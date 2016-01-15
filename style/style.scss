@@ -95,7 +95,9 @@ footer {
 .experiments {
   margin-top: 20px;
   background-color: white;
+  .controls {
 
+  }
   .experiments__bar {
     color: white;
     font-size: 1.3em;
@@ -117,17 +119,27 @@ footer {
   }
 }
 
-
-.label-info {
+.label {
   font-weight: bold;
   font-size: 0.85em;
   border-radius: 5px;
-  background-color: green;
+
   color: white;
   padding: 5px;
   margin-left: 10px;
   margin-right: 10px;
+
+
 }
+
+.label-info {
+  background-color: green;
+}
+
+.label-danger {
+  background-color: red;
+}
+
 .mt10 {
   margin-top: 10px;
 }

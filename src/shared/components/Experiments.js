@@ -2,31 +2,29 @@
  * Created by Olav on 10/9/2015.
  */
 import React from "react";
-import UIButton from './mui/UIButton.js';
-import UIIncrementButton from './mui/UIIncrementButton.js';
+import ExperimentControl from './libs/ExperimentControl.js';
 
 class Experiments extends React.Component {
 
     constructor() {
         super();
+        this.state = {experiments: []};
     }
 
 
-    componentDidMount() {
-
+    componentWillMount() {
+        var jobs = JSON.parse(this.props.data);
+        this.setState({experiments: jobs})
     }
-
-
 
     render() {
-        var initData = JSON.parse(this.props.data);
-        var jobs = initData.map( job => {
-            return (<p>{job.nr_events}</p>);
+        var experiments = this.state.experiments.map((experiment) => {
+            return (<ExperimentControl experiment={experiment} key={experiment._id}></ExperimentControl>)
         });
         return (
             <div className="mui-container">
-                <h1>Experiments</h1>
-                {jobs}
+                <h1>Running experiment</h1>
+                {experiments}
             </div>
         );
     }
