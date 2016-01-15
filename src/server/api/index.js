@@ -86,7 +86,7 @@ module.exports.set = function(app) {
         //TODO: Events or not, or the last ten events or something
         var db = req.db;
         var collection = db.get('experimentlist');
-        collection.find({ running : {$eq: true}},{fields: {events: {$slice: -10}}},function(e,docs){
+        collection.find({ running : {$eq: true}},{},function(e,docs){
             res.json(docs);
         });
     });

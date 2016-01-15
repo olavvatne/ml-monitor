@@ -92,6 +92,42 @@ footer {
 }
 
 
+.experiments {
+  margin-top: 20px;
+  background-color: white;
+
+  .experiments__bar {
+    color: white;
+    font-size: 1.3em;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-color: $michel-grey;
+    ul {
+      list-style-type: none;
+      display: table;
+      width: 100%;
+      li {
+        display: table-cell;
+      }
+    }
+  }
+  .experiments__content {
+    padding: 10px;
+
+  }
+}
+
+
+.label-info {
+  font-weight: bold;
+  font-size: 0.85em;
+  border-radius: 5px;
+  background-color: green;
+  color: white;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .mt10 {
   margin-top: 10px;
 }

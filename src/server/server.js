@@ -45,6 +45,7 @@ moveFile('./node_modules/muicss/dist/js/mui.min.js', './public/js/mui.min.js');
 moveFile('./node_modules/normalize.css/normalize.css', './public/style/normalize.css');
 
 
+
 if(app.get('env') === 'development') {
     app.use(sassMiddleware({
         /* Options */
@@ -54,6 +55,9 @@ if(app.get('env') === 'development') {
         outputStyle: 'compressed',
         prefix:  '/prefix'
     }));
+    app.use(express.static('./public')); //compiled sass and other stuff put in here
+}
+else {
     app.use(express.static('./public')); //compiled sass and other stuff put in here
 }
 
