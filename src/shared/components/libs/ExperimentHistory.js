@@ -4,6 +4,7 @@ import ExperimentEvents from './ExperimentEvents.js';
 var reqwest = require('reqwest');
 var XMLHttpRequest = require('xhr2');
 
+
 class ExperimentHistory extends React.Component {
 
     constructor() {
@@ -20,7 +21,7 @@ class ExperimentHistory extends React.Component {
         var that = this;
         var succ = function(success) {
             if(success.length >0) {
-                var experiment = success[0]
+                var experiment = success[0];
                 that.setState({events: experiment.events, configuration: experiment.configuration})
             }
         };
