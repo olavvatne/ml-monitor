@@ -12,12 +12,13 @@ class ExperimentHistory extends React.Component {
         this.state = {events: [], configuration: {}}
     }
 
-    componentWillMount() {
-        this._getExperimentData()
+    componentWillReceiveProps(props) {
+        this._getExperimentData(props)
     }
 
-    _getExperimentData() {
-        var experimentId = this.props.experiment._id;
+    _getExperimentData(props) {
+        console.log(props);
+        var experimentId = props.experiment._id;
         var that = this;
         var succ = function(success) {
             if(success.length >0) {
@@ -37,11 +38,14 @@ class ExperimentHistory extends React.Component {
     render() {
 
         var experiment = this.props.experiment;
-        return (
-            <div className="experiments__content">
+        var isExperiment = experiment._id ? true: false;
+
+        return isExperiment ? (
+           <div className="experiments__content">
+
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                        <p>Figure</p>
+                         <p>Figure</p>
                     </div>
                 </div>
                 <div className="mui-row">
@@ -55,7 +59,7 @@ class ExperimentHistory extends React.Component {
                     </div>
                 </div>
             </div>
-        );
+        ): null;
     }
 }
 

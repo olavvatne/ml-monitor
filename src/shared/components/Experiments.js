@@ -14,10 +14,9 @@ class List extends React.Component {
     }
 
     _handleListClick(experiment) {
-        console.log(experiment);
         this.setState({active: experiment});
+        this.props.onListChange(experiment);
     }
-
     render() {
 
         var list = this.props.experiments.map((experiment) => {
@@ -38,7 +37,8 @@ class Experiments extends React.Component {
 
     constructor() {
         super();
-        this.state = {experiments: []};
+        this.state = {experiments: [], display: {}};
+        this._listChange = this._handleListChange.bind(this);
     }
 
 
@@ -47,23 +47,20 @@ class Experiments extends React.Component {
         this.setState({experiments: jobs})
     }
 
+    _handleListChange(experiment) {
+        this.setState({display: experiment});
+    }
     render() {
 
-        var experiments = this.state.experiments.map((experiment) => {
-            return (
-                <ExperimentList experiment={experiment} key={experiment._id}>
-                    <ExperimentHistory experiment={experiment} key={experiment._id} />
-                </ExperimentList>)
-        });
-        var emptyMessage = experiments.length === 0? (<div className="message-panel"><p>No experiments</p></div>): null;
+        var emptyMessage = !this.state.display._id? (<div className="message-panel"><p>No experiment has been selected</p></div>): null;
         return (
             <div>
                 <div id="sidebar">
-                    <List experiments={this.state.experiments} />
+                    <List ref="list" experiments={this.state.experiments} onListChange={this._listChange}/>
                 </div>
                 <div id="content" className="mui-container-fluid">
                     <h1 className="page-header">Experiment history</h1>
-                    {experiments}
+                    <ExperimentHistory experiment={this.state.display} />
                     {emptyMessage}
                 </div>
             </div>
