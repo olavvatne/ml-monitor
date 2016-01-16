@@ -55,11 +55,12 @@ class Experiments extends React.Component {
         var emptyMessage = !this.state.display._id? (<div className="message-panel"><p>No experiment has been selected</p></div>): null;
         return (
             <div>
+                <h1 className="page-header">Experiment history</h1>
                 <div id="sidebar">
                     <List ref="list" experiments={this.state.experiments} onListChange={this._listChange}/>
                 </div>
                 <div id="content" className="mui-container-fluid">
-                    <h1 className="page-header">Experiment history</h1>
+
                     <ExperimentHistory experiment={this.state.display} />
                     {emptyMessage}
                 </div>
