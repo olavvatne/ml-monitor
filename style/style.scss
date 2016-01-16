@@ -157,6 +157,10 @@ footer {
   margin-top: 10px;
 }
 
+.mt30 {
+  margin-top: 30px;
+}
+
 .mb10 {
   margin-bottom: 10px;
 }
@@ -204,5 +208,22 @@ footer {
 @media (min-width: 768px) {
   #content {
     margin-left: 230px;
+    padding-left: 40px;
+    padding-right:40px;
+  }
+}
+
+.experiment-table {
+  width: 100%;
+
+  tr {
+    th, td {
+      padding: 5px;
+      border-bottom: 1px ridge  #ccc;
+    }
+    th {
+      background-color: white;
+      color: grey;
+    }
   }
 }

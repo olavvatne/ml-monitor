@@ -31,7 +31,7 @@ class ExperimentDetails extends React.Component {
         return (
             <div>
                 <h2>Recent events</h2>
-                <table className="event-list">
+                <table className="experiment-table">
                     <tr>
                         <th>Epoch</th>
                         <th>Time</th>
