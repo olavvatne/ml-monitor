@@ -2,6 +2,7 @@ import React from "react";
 import UIButton from '../mui/UIButton.js';
 import ExperimentDetails from './ExperimentDetails.js';
 import ExperimentEvents from './ExperimentEvents.js';
+import LineChart from './LineChart.js';
 import moment from "moment";
 var reqwest = require('reqwest');
 var XMLHttpRequest = require('xhr2');
@@ -44,6 +45,7 @@ class ExperimentControl extends React.Component {
 
     constructor() {
         super();
+        this.state = {showGraph: false};
     }
 
     componentWillMount() {
@@ -52,15 +54,23 @@ class ExperimentControl extends React.Component {
             this.setState({open: true})
         }
     }
-    render() {
 
+    componentDidMount() {
+        this.setState({showGraph: true});
+    }
+
+    render() {
         var experiment = this.props.experiment;
+        var graphEvents = [];
+        if(this.state.showGraph) {
+            graphEvents = experiment.events;
+        }
         return (
             <div className="experiments__content">
                 {experiment.running? <Controls eid={experiment._id}/>: null }
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                        <p>Figure</p>
+                        <LineChart data={graphEvents}></LineChart>
                     </div>
                 </div>
                 <div className="mui-row">

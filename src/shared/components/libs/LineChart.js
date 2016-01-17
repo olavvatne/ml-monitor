@@ -52,7 +52,7 @@ class LineChart extends React.Component {
     }
     componentWillReceiveProps(props) {
         //Linechart specific to experiment events.
-
+        console.log(props);
         var palette = new Rickshaw.Color.Palette();
 
         this.data[0] = this._createSeries("Validation loss", palette.color(), props.data, "validation_loss");
