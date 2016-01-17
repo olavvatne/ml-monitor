@@ -10,7 +10,7 @@ import mongo from 'mongod';
 import monk from 'monk';
 var bodyParser = require('body-parser');
 
-const db = monk('localhost:27017/ml-monitor')
+const db = monk('localhost:27017/ml-monitor');
 const app = express();
 
 app.set("env", process.env.NODE_ENV || "development");
@@ -89,6 +89,14 @@ if(app.get('env') === 'production') {
         }
     });
 }
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST', 'DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
+
 app.use(function(req,res,next){
     req.db = db;
     next();

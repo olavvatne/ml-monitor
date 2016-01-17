@@ -1,4 +1,64 @@
+import express from "express";
+
 module.exports.set = function(app) {
+
+    /*================SIMPLE AUTHENTICATION==============================================*/
+    /*Simple static token based authentication system. Ensures that destructive endpoints can only be called by
+    * authenticated users*/
+    //Authentication
+    app.post('/authenticate', function(req, res) {
+        var db = req.db;
+        var collection = db.get('userlist');
+        collection.findOne({user: req.body.user, password: req.body.password},{}, function(e, user) {
+            if (e) {
+                res.json({
+                    type: false,
+                    data: "Error occured: " + e
+                });
+            } else {
+                if (user) {
+                    res.json({
+                        type: true,
+                        data: user,
+                        token: "Bearer " + user.token
+                    });
+                } else {
+                    res.json({
+                        type: false,
+                        data: "Incorrect username/password"
+                    });
+                }
+            }
+        });
+    });
+
+    function ensureAuthorized(req, res, next) {
+        var bearerToken;
+        var bearerHeader = req.headers["authorization"];
+        if (typeof bearerHeader !== 'undefined') {
+            var bearer = bearerHeader.split(" ");
+            bearerToken = bearer[1];
+            var db = req.db;
+            var collection = db.get('userlist');
+            collection.findOne({token: bearerToken},{}, function(e, user) {
+                if (e) {
+                    res.sendStatus(401);
+                } else {
+                    if (user) {
+                        next()
+                    } else {
+                        res.sendStatus(401);
+                    }
+                }
+            });
+        } else {
+            res.sendStatus(403);
+        }
+    }
+
+
+    /* ================================= ML API ===========================================*/
+    /* All rest api endpoints, for gui and machine learning algorithm */
 
     //For experiments list in interface.
     app.get('/job', function (req, res) {
@@ -21,7 +81,7 @@ module.exports.set = function(app) {
     });
 
     //Delete a job via GUI.
-    app.delete('/job/:id', function (req, res) {
+    app.delete('/job/:id',ensureAuthorized, function (req, res) {
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
@@ -32,7 +92,7 @@ module.exports.set = function(app) {
 
 
     //Interface endpoint. Stopping current running match. If no running match, no change.
-    app.post('/job/:id/stop', function (req, res) {
+    app.post('/job/:id/stop',ensureAuthorized, function (req, res) {
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
@@ -55,7 +115,7 @@ module.exports.set = function(app) {
 
 
     //Machine learning algo use this interface to send progress report. Data stored in db.
-    app.post('/job/:id/update', function (req, res) {
+    app.post('/job/:id/update', ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
         var jobId = req.params.id;
@@ -74,7 +134,7 @@ module.exports.set = function(app) {
 
 
     //Machine learning algo need to start a new job first. Returns a job id.
-    app.post('/job/start', function (req, res) {
+    app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
         var job = {running: true, date_start: new Date(), events: [], nr_events: 0};
