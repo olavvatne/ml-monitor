@@ -231,3 +231,17 @@ footer {
 .x_label {
   visibility: hidden;
 }
+
+#sign-in {
+  float: right;
+  font-size: 20px;
+  color: black;
+
+
+  .mui-form-group {
+    padding-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    width: 150px !important;
+  }
+}

@@ -4,6 +4,7 @@
 import React from "react";
 import Experiments from "../../shared/components/Experiments";
 import Frontpage from "../../shared/components/Frontpage";
+import SignIn from "../../shared/components/SignIn";
 
 
 module.exports.set = function(app) {
@@ -26,11 +27,13 @@ module.exports.set = function(app) {
         collection.find({ running : {$eq: true}},{},function(e,docs){
             let initData = JSON.stringify(docs);
             let content = React.renderToString(<Frontpage data={initData}  />);
+            let signIn = React.renderToString(<SignIn />);
             var environment = getEnvironment();
             var templateData = {
                 title: Frontpage.title,
                 toolMetaDescription: Frontpage.toolMetaDescription,
                 reactContent: content,
+                reactSignIn: signIn,
                 reactEntryPath: environment.scriptPath,
                 reactScript: "FrontpageClient",
                 environment: environment.environment,
@@ -49,10 +52,12 @@ module.exports.set = function(app) {
             docs = docs.reverse();
             let initData = JSON.stringify(docs);
             let content = React.renderToString(<Experiments data={initData} />);
+            let signIn = React.renderToString(<SignIn />);
             var environment = getEnvironment();
             var templateData = {
                 title: Experiments.title,
                 reactContent: content,
+                reactSignIn: signIn,
                 reactEntryPath: environment.scriptPath,
                 reactScript: "ExperimentsClient",
                 environment: environment.environment,
