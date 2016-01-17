@@ -43,7 +43,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
     "request": "2.64.0",
-    "reqwest": "2.0.1"
-
+    "reqwest": "2.0.1",
+    "rickshaw": "^1.5.1"
   }
 }

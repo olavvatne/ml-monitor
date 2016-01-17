@@ -1,6 +1,7 @@
 import React from "react";
 import ExperimentDetails from './ExperimentDetails.js';
 import ExperimentEvents from './ExperimentEvents.js';
+import LineChart from './LineChart.js';
 var reqwest = require('reqwest');
 var XMLHttpRequest = require('xhr2');
 
@@ -45,7 +46,7 @@ class ExperimentHistory extends React.Component {
 
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                         <p>Figure</p>
+                         <LineChart data={this.state.events}></LineChart>
                     </div>
                 </div>
                 <div className="mui-row">
