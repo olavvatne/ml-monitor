@@ -2,12 +2,15 @@
 import React from "react";
 import ExperimentControl from './libs/ExperimentControl.js';
 import ExperimentList from './libs/ExperimentList.js';
+var reqwest = require('reqwest');
+var XMLHttpRequest = require('xhr2');
 
 class Frontpage extends React.Component {
 
     constructor() {
         super();
         this.state = {experiments: []};
+        this._refresh = this._refreshData.bind(this);
     }
 
     componentWillMount() {
@@ -16,6 +19,22 @@ class Frontpage extends React.Component {
             jobs[0].first = true;
         }
         this.setState({experiments: jobs})
+    }
+
+    componentDidMount() {
+        self._timer = setInterval(this._refresh, 15000);
+    }
+
+    _refreshData() {
+        reqwest({
+            url: '/current-job',
+            type: 'json',
+            contentType: 'application/json',
+            method: 'get',
+            success: (success) => {
+                this.setState({experiments: success});
+            }
+        });
     }
 
     render() {
