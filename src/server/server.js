@@ -43,6 +43,10 @@ var moveFile = function(from, to) {
 moveFile('./node_modules/muicss/dist/css/mui.min.css', './public/style/mui.min.css');
 moveFile('./node_modules/muicss/dist/js/mui.min.js', './public/js/mui.min.js');
 moveFile('./node_modules/normalize.css/normalize.css', './public/style/normalize.css');
+moveFile('./node_modules/rickshaw/rickshaw.min.css', './public/style/rickshaw.min.css');
+moveFile('./node_modules/rickshaw/rickshaw.min.js', './public/js/rickshaw.min.js');
+moveFile('./node_modules/rickshaw/vendor/d3.layout.min.js', './public/style/d3.layout.min.js');
+moveFile('./node_modules/rickshaw/vendor/d3.min.js', './public/js/d3.min.js');
 
 
 

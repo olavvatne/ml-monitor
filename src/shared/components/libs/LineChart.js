@@ -3,33 +3,23 @@ import React from "react";
 
 //Rickshaw included as script in base.ejs. Node can't handle import that well.
 class LineChart extends React.Component {
+
     constructor() {
         super();
         this.graph = null;
-        this.data = [{}];
+        this.data = [{}, {}];
         this.resize = this.handleResize.bind(this);
     }
-    componentWillReceiveProps(props) {
 
-        var newData = props.data.map((element => {
-            return {x: element.epoch, y: element.validation_loss}
-        }));
-        var series = {
-            name: "Validation loss",
-            data: newData,
-            color: "#c05020"
-        }
-        this.data[0] = series;
 
-        if(!this.graph) {
-            this.graph = new Rickshaw.Graph( {
-                element: this.refs.graph.getDOMNode(),
-                width: this.refs.graph.getDOMNode().clientWidth - 40,
-                renderer: 'line',
-                series:this.data
+    _createGraph() {
+        this.graph = new Rickshaw.Graph( {
+            element: this.refs.graph.getDOMNode(),
+            width: this.refs.graph.getDOMNode().clientWidth - 40,
+            renderer: 'line',
+            series:this.data
 
-            } );
-        }
+        } );
         var xaxes = new Rickshaw.Graph.Axis.X(
             {
                 graph: this.graph,
@@ -47,14 +37,35 @@ class LineChart extends React.Component {
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
             element: this.refs.yaxis.getDOMNode(),
         } );
+    }
 
-        /*var legend = new Rickshaw.Graph.Legend( {
-            element: this.refs.legend.getDOMNode(),
-            graph: this.graph
-        } );*/
+    _createSeries(name, color, data, dataKey) {
+        var newData = data.map((element => {
+            return {x: element.epoch, y: element[dataKey]}
+        }));
+
+        return {
+            name: name,
+            data: newData,
+            color: color
+        };
+    }
+    componentWillReceiveProps(props) {
+        //Linechart specific to experiment events.
+
+        var palette = new Rickshaw.Color.Palette();
+
+        this.data[0] = this._createSeries("Validation loss", palette.color(), props.data, "validation_loss");
+        this.data[1] = this._createSeries("Test loss", palette.color(), props.data, "test_loss");
+        //this.data[2] = this._createSeries("Training loss", palette.color(), props.data, "training_loss");
+
+        if(!this.graph) {
+            this._createGraph();
+        }
 
         this.graph.render();
     }
+
 
     handleResize() {
         console.log(this.refs.graph.getDOMNode());
@@ -64,13 +75,16 @@ class LineChart extends React.Component {
         this.graph.render();
     }
 
+
     componentDidMount() {
         window.addEventListener('resize', this.resize);
     }
 
+
     shouldComponentUpdate(nextProp) {
         return true;
     }
+
 
     render() {
         let containerStyle = {position: "relative", fontFamily: "Arial"};
