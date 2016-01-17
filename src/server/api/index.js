@@ -20,6 +20,16 @@ module.exports.set = function(app) {
         });
     });
 
+    //Delete a job via GUI.
+    app.delete('/job/:id', function (req, res) {
+        var db = req.db;
+        var jobId = req.params.id;
+        var collection = db.get('experimentlist');
+        collection.remove({ _id : jobId },{},function(e,docs){
+            res.send({msg: "Experiment " + jobId + " has been deleted"});
+        });
+    });
+
 
     //Interface endpoint. Stopping current running match. If no running match, no change.
     app.post('/job/:id/stop', function (req, res) {

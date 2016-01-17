@@ -18,7 +18,7 @@ class List extends React.Component {
         this.props.onListChange(experiment);
     }
     render() {
-
+        console.log("RENDER");
         var list = this.props.experiments.map((experiment) => {
             let handler = this._handleListClick.bind(this, experiment);
             let isActive = this.state.active._id === experiment._id? "active": "";
@@ -39,6 +39,7 @@ class Experiments extends React.Component {
         super();
         this.state = {experiments: [], display: {}};
         this._listChange = this._handleListChange.bind(this);
+        this._removeJob = this._handleRemoveJob.bind(this);
     }
 
 
@@ -50,6 +51,18 @@ class Experiments extends React.Component {
     _handleListChange(experiment) {
         this.setState({display: experiment});
     }
+
+    _handleRemoveJob() {
+        var experiments = this.state.experiments;
+        for( var i =0; i< experiments.length; i++) {
+            if(experiments[i]._id === this.state.display._id) {
+                experiments.splice(i, 1);
+                this.setState({experiments: experiments, display: {}});
+                return;
+            }
+        }
+    }
+
     render() {
 
         var emptyMessage = !this.state.display._id? (<div className="message-panel"><p>No experiment has been selected</p></div>): null;
@@ -61,7 +74,7 @@ class Experiments extends React.Component {
                 </div>
                 <div id="content" className="mui-container-fluid">
 
-                    <ExperimentHistory experiment={this.state.display} />
+                    <ExperimentHistory experiment={this.state.display} onRemove={this._removeJob}/>
                     {emptyMessage}
                 </div>
             </div>
