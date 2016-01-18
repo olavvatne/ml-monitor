@@ -1,8 +1,8 @@
 import React from "react";
-import Controls from './Controls.js';
-import ExperimentDetails from './ExperimentDetails.js';
-import ExperimentEvents from './ExperimentEvents.js';
-import LineChart from './LineChart.js';
+import Controls from "./Controls.js";
+import ExperimentDetails from "./ExperimentDetails.js";
+import ExperimentEvents from "./ExperimentEvents.js";
+import LineChart from "./LineChart.js";
 import moment from "moment";
 
 

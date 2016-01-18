@@ -18,20 +18,26 @@ class UIText extends React.Component {
     _handleChange(event) {
         //TODO: Necessary to set state?
         this.setState({value: event.target.value});
-        this.props.onChange(event.target.value);
+        if(this.props.onChange) {
+            this.props.onChange(event.target.value);
+        }
     }
     render() {
         //TODO: Handle errors
-
+        var type = "text";
+        if(this.props.type) {
+            type = this.props.type;
+        }
         //var errorText = (<small style={{"position":"absolute", "color": "red"}}>Not a number</small>)
         return (
+
             <div className="mui-form-group">
                 <input ref="element" type="text"
                        className="mui-form-control"
                        value={this.state.value}
                        onChange={this._handle}
                        pattern={this.props.validationPattern}
-                       style={this.props.style}/>
+                       style={this.props.style} type={type}/>
                     <label className="mui-form-floating-label">{this.props.labelText}</label>
 
             </div>

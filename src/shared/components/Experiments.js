@@ -2,8 +2,8 @@
  * Created by Olav on 10/9/2015.
  */
 import React from "react";
-import ExperimentHistory from './libs/ExperimentHistory.js';
-import ExperimentList from './libs/ExperimentList.js';
+import ExperimentHistory from "./libs/ExperimentHistory.js";
+import ExperimentList from "./libs/ExperimentList.js";
 import moment from "moment";
 
 class List extends React.Component {

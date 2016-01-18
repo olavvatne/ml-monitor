@@ -1,10 +1,9 @@
 import React from "react";
-import ExperimentDetails from './ExperimentDetails.js';
-import ExperimentEvents from './ExperimentEvents.js';
-import LineChart from './LineChart.js';
-import Controls from './Controls.js';
-var reqwest = require('reqwest');
-var XMLHttpRequest = require('xhr2');
+import ExperimentDetails from "./ExperimentDetails.js";
+import ExperimentEvents from "./ExperimentEvents.js";
+import LineChart from "./LineChart.js";
+import Controls from "./Controls.js";
+import reqwest from "reqwest";
 
 
 class ExperimentHistory extends React.Component {

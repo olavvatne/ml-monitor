@@ -1,7 +1,6 @@
 import React from "react";
-import UIButton from '../mui/UIButton.js';
-var reqwest = require('reqwest');
-var XMLHttpRequest = require('xhr2');
+import UIButton from "../mui/UIButton.js";
+import reqwest from "reqwest";
 
 
 class Controls extends React.Component {

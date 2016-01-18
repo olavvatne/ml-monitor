@@ -1,9 +1,8 @@
 
 import React from "react";
-import ExperimentControl from './libs/ExperimentControl.js';
-import ExperimentList from './libs/ExperimentList.js';
-var reqwest = require('reqwest');
-var XMLHttpRequest = require('xhr2');
+import ExperimentControl from "./libs/ExperimentControl.js";
+import ExperimentList from "./libs/ExperimentList.js";
+import reqwest from "reqwest";
 
 class Frontpage extends React.Component {
 

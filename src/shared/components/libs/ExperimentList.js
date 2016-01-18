@@ -1,5 +1,5 @@
 import React from "react";
-import UIButton from '../mui/UIButton.js';
+import UIButton from "../mui/UIButton.js";
 import moment from "moment";
 
 class Duration extends React.Component {
