@@ -17,4 +17,4 @@
 * REMEMBER "--save" when including new libraries
 * First time cloning project, create style and js folder in the public folder
 
-How to making a service taken from [here](https://gist.github.com/jobsamuel/6d6095d52228461f3c53), and includes the service script.
+How to making a service taken from [here](https://gist.github.com/willrstern/3510ecef59c3f76b0152), and includes the service script.
