@@ -32,13 +32,13 @@ class ExperimentDetails extends React.Component {
             <div>
                 <h2>Recent events</h2>
                 <table className="experiment-table">
-                    <tr>
+                    <thead><tr>
                         <th>Epoch</th>
                         <th>Time</th>
                         <th>Validation</th>
                         <th>Test</th>
-                    </tr>
-                    {events}
+                    </tr></thead>
+                    <tbody>{events}</tbody>
                 </table>
             </div>
         );

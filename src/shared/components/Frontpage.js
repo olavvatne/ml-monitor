@@ -46,10 +46,12 @@ class Frontpage extends React.Component {
         });
         var emptyMessage = experiments.length === 0? (<div className="message-panel"><p>No running experiments</p></div>): null;
         return (
-            <div className="mui-container">
+            <div>
                 <h1 className="page-header">Running experiment</h1>
                 {experiments}
-                {emptyMessage}
+                <div className="mui-container">
+                    {emptyMessage}
+                </div>
             </div>
         );
     }

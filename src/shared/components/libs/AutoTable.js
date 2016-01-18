@@ -4,14 +4,14 @@ class Row extends React.Component {
 
     render() {
         if(this.props.header) {
-            var row = this.props.data.map((d) =>{return (<th>{d}</th>)});
+            var row = this.props.data.map((d, i) =>{return (<th key={i}>{d}</th>)});
+            var content = <thead><tr>{row}</tr></thead>
         }
         else {
-            var row = this.props.data.map((d) =>{return (<td>{d}</td>)});
+            var row = this.props.data.map((d, i) =>{return (<td key={i}>{JSON.stringify(d)}</td>)});
+            var content = <tbody><tr>{row}</tr></tbody>;
         }
-        return (
-            <tr>{row}</tr>
-        );
+        return content;
     }
 }
 class AutoTable extends React.Component {
@@ -57,7 +57,7 @@ class AutoTable extends React.Component {
         let tableContent = this._constructTable();
         let table = tableContent.map((row, i) => {
             let isHeader = i%2 === 0;
-            return (<Row data={row} header={isHeader }/>)
+            return (<Row data={row} header={isHeader } key={"Row" + i}/>)
         });
         return (
             <table className={this.props.className}>

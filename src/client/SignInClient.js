@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import SignIn from "../shared/components/SignIn";
 
-React.render(<SignIn />, document.getElementById('sign-in'));//
+ReactDOM.render(<SignIn />, document.getElementById('sign-in'));//

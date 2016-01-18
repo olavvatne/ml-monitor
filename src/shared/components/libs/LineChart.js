@@ -14,8 +14,8 @@ class LineChart extends React.Component {
 
     _createGraph() {
         this.graph = new Rickshaw.Graph( {
-            element: this.refs.graph.getDOMNode(),
-            width: this.refs.graph.getDOMNode().clientWidth - 40,
+            element: this.refs.graph,
+            width: this.refs.graph.clientWidth - 40,
             renderer: 'line',
             series:this.data
 
@@ -35,7 +35,7 @@ class LineChart extends React.Component {
             graph: this.graph,
             orientation: 'left',
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-            element: this.refs.yaxis.getDOMNode(),
+            element: this.refs.yaxis
         } );
     }
 
@@ -68,9 +68,9 @@ class LineChart extends React.Component {
 
 
     handleResize() {
-        console.log(this.refs.graph.getDOMNode());
+        console.log(this.refs.graph);
         this.graph.configure({
-            width: this.refs.graph.getDOMNode().clientWidth -40,
+            width: this.refs.graph.clientWidth -40,
         });
         this.graph.render();
     }
