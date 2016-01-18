@@ -1,10 +1,5 @@
 .idea
-dist
-lib
 node_modules
-public/js
-public/style
-apikey.js
 Thumbs.db
 data
 npm-debug.log
