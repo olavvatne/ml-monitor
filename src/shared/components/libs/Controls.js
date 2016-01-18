@@ -13,6 +13,7 @@ class Controls extends React.Component {
 
     _stopExperiment() {
         var r = confirm("Are you sure you want to stop experiment?");
+        var token = localStorage.getItem("token");
         if(r === false) {
             return;
         }
@@ -22,6 +23,9 @@ class Controls extends React.Component {
             type: 'json',
             contentType: 'application/json',
             method: 'post',
+            headers: {
+                "authorization": token
+            },
             success: (success) => {
                 console.log(success)
             }
@@ -33,12 +37,16 @@ class Controls extends React.Component {
         if(r === false) {
             return;
         }
+        var token = localStorage.getItem("token");
         var experimentId = this.props.eid;
         reqwest({
             url: '/job/' + experimentId,
             type: 'json',
             contentType: 'application/json',
             method: 'delete',
+            headers: {
+                "authorization": token
+            },
             success: (success) => {
                 this.props.onRemove();
             }

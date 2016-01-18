@@ -26,7 +26,7 @@ class SignIn extends React.Component {
                 if(success.type) {
                     this.createNotification('success', 'Sign in', 'You can now use API protected endpoints, ' + success.data.user);
                     localStorage.setItem('user', success.data.user);
-                    localStorage.setItem('token', success.data.token);
+                    localStorage.setItem('token', success.token);
                     this.setState({signedIn: true})
                 }
                 else {
