@@ -252,3 +252,19 @@ footer {
     width: 150px !important;
   }
 }
+
+.notification {
+  margin-top: 70px !important;
+}
+
+.signed-in {
+  margin-top: 10px;
+  font-size: 1.3em;
+  color: white;
+  padding-top:2px;
+  padding-bottom:2px;
+  padding-left: 7px;
+  padding-right: 7px;
+  background-color: green;
+  border-radius: 3px;
+}

@@ -41,10 +41,10 @@
     "muicss": "^0.1.23",
     "node-sass-middleware": "^0.9.6",
     "normalize.css": "^3.0.3",
-    "react": "^0.13.3",
+    "react": "^0.14.6",
+    "react-notifications": "^0.2.0",
     "request": "2.64.0",
     "reqwest": "2.0.1",
-    "rickshaw": "^1.5.1",
-    "toastr": "^2.1.2"
+    "rickshaw": "^1.5.1"
   }
 }
