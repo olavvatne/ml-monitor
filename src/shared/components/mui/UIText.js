@@ -32,12 +32,12 @@ class UIText extends React.Component {
         return (
 
             <div className="mui-form-group">
-                <input ref="element" type="text"
+                <input ref="element" type={type}
                        className="mui-form-control"
                        value={this.state.value}
                        onChange={this._handle}
                        pattern={this.props.validationPattern}
-                       style={this.props.style} type={type}/>
+                       style={this.props.style} />
                     <label className="mui-form-floating-label">{this.props.labelText}</label>
 
             </div>
