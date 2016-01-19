@@ -39,7 +39,16 @@ var moveFile = function(from, to) {
             console.log('It\'s saved! ' + to);
         });
     });
-}
+};
+
+var createFolder = function(path, name) {
+    var dir = path + name;
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+};
+
+createFolder('./public/', 'style');
 moveFile('./node_modules/muicss/dist/css/mui.min.css', './public/style/mui.min.css');
 moveFile('./node_modules/muicss/dist/js/mui.min.js', './public/js/mui.min.js');
 moveFile('./node_modules/normalize.css/normalize.css', './public/style/normalize.css');
