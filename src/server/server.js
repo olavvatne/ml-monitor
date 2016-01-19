@@ -42,6 +42,7 @@ var moveFile = function(from, to) {
 };
 
 var createFolder = function(path, name) {
+    console.log("CREATE FOLDER: " + path + name );
     var dir = path + name;
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
