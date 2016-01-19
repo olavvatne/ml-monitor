@@ -49,6 +49,7 @@ var createFolder = function(path, name) {
 };
 
 createFolder('./public/', 'style');
+createFolder('./public/', 'js');
 moveFile('./node_modules/muicss/dist/css/mui.min.css', './public/style/mui.min.css');
 moveFile('./node_modules/muicss/dist/js/mui.min.js', './public/js/mui.min.js');
 moveFile('./node_modules/normalize.css/normalize.css', './public/style/normalize.css');
