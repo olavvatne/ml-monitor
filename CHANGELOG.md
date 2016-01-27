@@ -4,7 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-
+## 1.1.0 - 2016-01-27
+### Added
+- Endpoints for debug command
+- Debug button in controls
+- Notifications for commands, remove, debug and stop.
 
 ## 1.0.0 - 2016-01-18
 ### Added
@@ -16,5 +20,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Simple token authentication scheme to protect certain endpoints.
 - Storing and retrieving experiments via MongoDB.
 
-[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.1.0
 [1.0.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.0.0
