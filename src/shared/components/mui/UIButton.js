@@ -9,17 +9,23 @@ class UIButton extends React.Component {
         super();
     }
 
+
     render() {
 
         var primary = this.props.primary ? "primary" : "";
         var danger = this.props.danger ? "danger" : "";
-
+        var btnType = "button";
+        if(this.props.type) {
+            btnType = this.props.type;
+        }
         return (
+
             <button className="mui-btn"
+                    type={btnType}
                     data-mui-color={primary + danger}
                     data-mui-style="raised"
-                onClick={this.props.onClick}
-                style={this.props.style}>
+                    onClick={this.props.onClick}
+                    style={this.props.style}>
             {this.props.label}
         </button>
         )

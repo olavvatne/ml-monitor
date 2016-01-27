@@ -1,15 +1,19 @@
 import React from "react";
 import UIButton from "../mui/UIButton.js";
 import reqwest from "reqwest";
+import Notifications from 'react-notifications';
 
-
+//TODO: notification suffers from a duplicate code. Refactor.
+//Currently notification is used in this way, since there should be a response from unauthenticated attempts
+//at using protected endpoints
 class Controls extends React.Component {
     constructor() {
         super();
-        this.state = {open: false};
+        this.state = {open: false, notifications: []};
         this._stop = this._stopExperiment.bind(this);
         this._debug = this._debugExperiment.bind(this);
         this._remove = this._removeExperiment.bind(this);
+        this._notification = this._handleNotification.bind(this);
     }
 
     _debugExperiment() {
@@ -24,7 +28,10 @@ class Controls extends React.Component {
                 "authorization": token
             },
             success: (success) => {
-                console.log(success)
+                this.createNotification('success', 'Debugging', 'System will output images shortly');
+            },
+            error: (error) => {
+                this.createNotification('error', 'Problem', 'Could not stop. Probably token');
             }
         });
     }
@@ -45,7 +52,10 @@ class Controls extends React.Component {
                 "authorization": token
             },
             success: (success) => {
-                console.log(success)
+                this.createNotification('success', 'Stopping', 'System stop experiment and save parameters');
+            },
+            error: (error) => {
+                this.createNotification('error', 'Problem', 'Could not stop. Probably token');
             }
         });
     }
@@ -66,15 +76,43 @@ class Controls extends React.Component {
                 "authorization": token
             },
             success: (success) => {
+                this.createNotification('success', 'Removing', 'Experiment record is removed');
                 this.props.onRemove();
+            },
+            error: (error) => {
+                this.createNotification('error', 'Problem', 'Could not stop. Probably token');
             }
         });
     }
+
+    _handleNotification(notification) {
+        let notifications = this.state.notifications.filter(n => n.id !== notification.id);
+        this.setState({
+            notifications: notifications
+        });
+    }
+
+    createNotification(type, header, text) {
+        let notifications = this.state.notifications;
+        let id = new Date().getTime();
+        let notification = {
+            id: id,
+            type: type,
+            title: header,
+            message: text,
+            timeOut: (Math.random() * 6000)
+        };
+        notifications.push(notification);
+        this.setState({
+            notifications: notifications
+        });
+    };
 
     render() {
         return (
             <div className="mui-row">
                 <div className="mui-col-md-12 controls">
+                    <Notifications notifications={this.state.notifications} onRequestHide={this._notification}/>
                     {this.props.running ? <UIButton label="Stop" danger={true} onClick={this._stop}></UIButton> : null}
                     {this.props.running ? <UIButton label="Debug" primary={true} onClick={this._debug}></UIButton> : null}
                     {!this.props.running ?

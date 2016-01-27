@@ -14,7 +14,8 @@ class SignIn extends React.Component {
         this._notification = this._handleNotification.bind(this);
     }
 
-    _handleSignIn() {
+    _handleSignIn(e) {
+        console.log("LOG IN");
         var payload = JSON.stringify({user: this.refs.user.getValue(), password: this.refs.password.getValue()});
         reqwest({
             url: '/authenticate',
@@ -77,15 +78,15 @@ class SignIn extends React.Component {
     }
     render() {
         return (
-            <div>
+            <form>
                 <Notifications notifications={this.state.notifications} onRequestHide={this._notification}/>
                 {!this.state.signedIn? [
                         <UIText labelText={"User"} ref="user" key="user" />,
                         <UIText labelText={"Password"} ref="password" type={"password"} key="password" />,
 
-                <UIButton primary={true} label={'Sign in'} onClick={this._signIn} /> ]:null}
+                <UIButton primary={true} label={'Sign in'} onClick={this._signIn}/> ]:null}
                 {this.state.signedIn? <div className="signed-in" onClick={this._signOut}> &#10003;</div> :null}
-            </div>
+            </form>
         );
     }
 }
