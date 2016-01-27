@@ -76,8 +76,8 @@ class Controls extends React.Component {
                 "authorization": token
             },
             success: (success) => {
-                this.createNotification('success', 'Removing', 'Experiment record is removed');
                 this.props.onRemove();
+                this.createNotification('success', 'Removing', 'Experiment record is removed');
             },
             error: (error) => {
                 this.createNotification('error', 'Problem', 'Could not stop. Probably token');
