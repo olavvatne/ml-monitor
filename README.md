@@ -11,7 +11,6 @@
 * Go to /etc/init/
 * $ sudo vim ml-monitor.conf
 * $ sudo start ml-monitor
-* restart node (restart unuseful-app-1)
 
 ## New component
 * REMEMBER "--save" when including new libraries

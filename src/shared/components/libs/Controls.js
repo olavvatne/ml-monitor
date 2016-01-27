@@ -8,7 +8,25 @@ class Controls extends React.Component {
         super();
         this.state = {open: false};
         this._stop = this._stopExperiment.bind(this);
+        this._debug = this._debugExperiment.bind(this);
         this._remove = this._removeExperiment.bind(this);
+    }
+
+    _debugExperiment() {
+        var token = localStorage.getItem("token");
+        var experimentId = this.props.eid;
+        reqwest({
+            url: '/job/' + experimentId + '/debug',
+            type: 'json',
+            contentType: 'application/json',
+            method: 'post',
+            headers: {
+                "authorization": token
+            },
+            success: (success) => {
+                console.log(success)
+            }
+        });
     }
 
     _stopExperiment() {
@@ -58,6 +76,7 @@ class Controls extends React.Component {
             <div className="mui-row">
                 <div className="mui-col-md-12 controls">
                     {this.props.running ? <UIButton label="Stop" danger={true} onClick={this._stop}></UIButton> : null}
+                    {this.props.running ? <UIButton label="Debug" primary={true} onClick={this._debug}></UIButton> : null}
                     {!this.props.running ?
                         <UIButton label="Remove" danger={true} onClick={this._remove}></UIButton> : null}
                 </div>

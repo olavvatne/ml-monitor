@@ -113,6 +113,22 @@ module.exports.set = function(app) {
         });
     });
 
+    //setting the debug flag, which the system will retrieve at the next poll.
+    app.post('/job/:id/debug',ensureAuthorized, function (req, res) {
+        var db = req.db;
+        var jobId = req.params.id;
+        var collection = db.get('experimentlist');
+        collection.find({ _id : jobId },{},function(e,docs){
+            if(docs.length>0) {
+                var job = docs[0];
+                collection.update({'_id': jobId}, {$set: {test: true}});
+                res.send({msg: "Experiment is set in debug state", test: true});
+            }
+            else {
+                res.send({msg: "Not found", running: false});
+            }
+        });
+    });
 
     //Machine learning algo use this interface to send progress report. Data stored in db.
     app.post('/job/:id/update', ensureAuthorized, function (req, res) {
@@ -137,7 +153,7 @@ module.exports.set = function(app) {
     app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        var job = {running: true, date_start: new Date(), events: [], nr_events: 0};
+        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0};
         if(req.body) {
             job.configuration = req.body;
         }
@@ -162,8 +178,8 @@ module.exports.set = function(app) {
     });
 
 
-    //For machine learning algo. Retrives the stop status of the running job. If user have pressed stop, this will return
-    //a stop message.
+    //For machine learning algo. Retrives the stop and test status of the running job. If user have pressed stop, this
+    // will return a stop message.
     app.get('/job/:id/status', function (req, res) {
         var db = req.db;
         var jobId = req.params.id;
@@ -172,14 +188,20 @@ module.exports.set = function(app) {
             if(docs.length>0) {
                 var job = docs[0];
                 if(job.running === true) {
-                    res.send({msg: "Experiment is running", running: true});
+                    var is_test = job.test;
+                    if(is_test) {
+                        //Maybe a bit brittle, but should do for now. Not stateless i guess. Ideally create new endpoint
+                        //for server, and sets test to false.
+                        collection.update({'_id': jobId}, {$set: {test: false}});
+                    }
+                    res.send({msg: "Experiment is running", running: true, test: is_test});
                 }
                 else {
-                    res.send({msg: "Experiment is not running", running: false});
+                    res.send({msg: "Experiment is not running", running: false, test: false});
                 }
             }
             else {
-                res.json({msg: "Not found", running: false})
+                res.json({msg: "Not found", running: false, test: false})
             }
         });
     });
