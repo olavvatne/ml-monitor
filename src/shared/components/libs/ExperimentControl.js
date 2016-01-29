@@ -38,7 +38,7 @@ class ExperimentControl extends React.Component {
                         <LineChart data={graphEvents}></LineChart>
                     </div>
                 </div>
-                <div className="mui-row">
+                <div className="mui-row frontpage_table">
                     <div className="mui-col-md-8">
                         <ExperimentDetails details={experiment}></ExperimentDetails>
                     </div>

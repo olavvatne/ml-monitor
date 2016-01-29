@@ -217,32 +217,30 @@ footer {
 $table-border: 7px;
 .experiment-table {
   width: 100%;
-
+  border-collapse: separate;
+  border-spacing: 6px 0px;
   tr {
 
     td {
-      border-left: $table-border solid $mystic;
-      border-right: $table-border solid $mystic;
+
       background-color: #F6F6F6;
       color: rgb(111, 111, 111);
       padding-top: 10px;
       padding-bottom: 10px;
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 5px;
+      padding-right: 5px;
       border-bottom: 1px ridge  #ccc;
 
     }
     th {
-      border-left: $table-border solid $mystic;
-      border-right: $table-border solid $mystic;
-      border-top: $table-border*1.5 solid $mystic;
+      border-top: 7px solid $mystic;
       background-color: #586875;
       color: white;
       font-weight: bold;
       padding-top: 10px;
       padding-bottom: 10px;
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 5px;
+      padding-right: 5px;
     //text-align: center;
     }
   }
@@ -302,3 +300,13 @@ $table-border: 7px;
 
 }
 
+.frontpage_table {
+  table {
+    th {
+      border-top: 7px solid white !important;
+    }
+    td {
+      word-wrap: break-word;
+    }
+  }
+}
