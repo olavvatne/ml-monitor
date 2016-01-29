@@ -104,7 +104,7 @@ footer {
     font-size: 1.3em;
     padding-top: 10px;
     padding-bottom: 5px;
-    background-color: $michel-grey;
+    background-color: $greyblue;
     ul {
       list-style-type: none;
       display: table;
@@ -217,12 +217,8 @@ footer {
 $table-border: 7px;
 .experiment-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 6px 0px;
   tr {
-
     td {
-
       background-color: #F6F6F6;
       color: rgb(111, 111, 111);
       padding-top: 10px;
@@ -234,7 +230,7 @@ $table-border: 7px;
     }
     th {
       border-top: 7px solid $mystic;
-      background-color: #586875;
+      background-color: $greyblue;
       color: white;
       font-weight: bold;
       padding-top: 10px;
@@ -298,15 +294,4 @@ $table-border: 7px;
     color: $shark;
   }
 
-}
-
-.frontpage_table {
-  table {
-    th {
-      border-top: 7px solid white !important;
-    }
-    td {
-      word-wrap: break-word;
-    }
-  }
 }
