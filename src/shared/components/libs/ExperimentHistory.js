@@ -11,7 +11,7 @@ class ExperimentHistory extends React.Component {
 
     constructor() {
         super();
-        this.state = {events: [], configuration: {}, result:{}}
+        this.state = {events: [], configuration: {}, result:{}, comment: ""}
     }
 
     componentWillReceiveProps(props) {
@@ -30,7 +30,8 @@ class ExperimentHistory extends React.Component {
                 that.setState({
                     events: experiment.events,
                     configuration: experiment.configuration,
-                    result: experiment.result
+                    result: experiment.result,
+                    comment: experiment.comment
                 });
             }
         };
@@ -73,7 +74,7 @@ class ExperimentHistory extends React.Component {
 
                <div className="mui-row">
                    <div className="mui-col-md-12">
-                       <ExperimentComment comment={experiment.comment}></ExperimentComment>
+                       <ExperimentComment comment={this.state.comment} eid={experiment._id}></ExperimentComment>
                    </div>
                </div>
 

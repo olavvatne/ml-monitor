@@ -10,7 +10,7 @@ class ExperimentDetails extends React.Component {
         if(!configuration) {
             configuration = {};
         }
-        if(!result.evaluation) {
+        if(!result || !result.evaluation) {
             result = {evaluation: {}, dataset: {}}
         }
         console.log("result", result);

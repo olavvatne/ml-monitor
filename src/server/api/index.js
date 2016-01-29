@@ -96,7 +96,6 @@ module.exports.set = function(app) {
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
-        console.log(req.body);
         collection.find({ _id : jobId },{},function(e,docs){
             if(docs.length>0) {
                 var job = docs[0];
@@ -113,6 +112,22 @@ module.exports.set = function(app) {
             }
             else {
                 res.send({msg: "Not found", running: false});
+            }
+        });
+    });
+
+    //GUI endpoint for comment
+    app.post('/job/:id/comment',ensureAuthorized, function (req, res) {
+        var db = req.db;
+        var jobId = req.params.id;
+        var collection = db.get('experimentlist');
+        collection.find({ _id : jobId },{},function(e,docs){
+            if(docs.length>0) {
+                collection.update({'_id': jobId}, {$set: {comment: req.body.comment}});
+                res.send({msg: "Comment updated", comment: req.body.comment});
+            }
+            else {
+                res.send({msg: "Job not found"});
             }
         });
     });
