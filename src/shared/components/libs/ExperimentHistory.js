@@ -1,6 +1,7 @@
 import React from "react";
 import ExperimentDetails from "./ExperimentDetails.js";
 import ExperimentEvents from "./ExperimentEvents.js";
+import ExperimentComment from "./ExperimentComment.js";
 import LineChart from "./LineChart.js";
 import Controls from "./Controls.js";
 import reqwest from "reqwest";
@@ -69,6 +70,12 @@ class ExperimentHistory extends React.Component {
                         <ExperimentEvents events={this.state.events}></ExperimentEvents>
                     </div>
                 </div>
+
+               <div className="mui-row">
+                   <div className="mui-col-md-12">
+                       <ExperimentComment comment={experiment.comment}></ExperimentComment>
+                   </div>
+               </div>
 
                <div className="mui-row">
                    <div className="mui-col-md-12">
