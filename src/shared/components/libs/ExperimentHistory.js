@@ -55,6 +55,7 @@ class ExperimentHistory extends React.Component {
                          <LineChart data={this.state.events}></LineChart>
                     </div>
                 </div>
+
                 <div className="mui-row">
                     <div className="mui-col-md-12">
                         <ExperimentDetails details={experiment}
@@ -68,6 +69,12 @@ class ExperimentHistory extends React.Component {
                         <ExperimentEvents events={this.state.events}></ExperimentEvents>
                     </div>
                 </div>
+
+               <div className="mui-row">
+                   <div className="mui-col-md-12">
+                       <a href={"/job/" + experiment._id} style={{float: "right", marginTop: "20px"}}>Raw json data</a>
+                   </div>
+               </div>
             </div>
         ): null;
     }
