@@ -48,8 +48,8 @@ class Frontpage extends React.Component {
         return (
             <div>
                 <h1 className="page-header">Running experiment</h1>
-                {experiments}
                 <div className="mui-container">
+                    {experiments}
                     {emptyMessage}
                 </div>
             </div>

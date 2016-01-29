@@ -65,7 +65,7 @@ module.exports.set = function(app) {
         var db = req.db;
         var collection = db.get('experimentlist');
         //Events is excluded, because of potensial size in such a listing.
-        collection.find({},{fields: {events: 0, configuration: 0}},function(e,docs){
+        collection.find({},{fields: {events: 0, configuration: 0}, sort: [['date_start', 'asc']]},function(e,docs){
             res.json(docs);
         });
     });
@@ -96,14 +96,18 @@ module.exports.set = function(app) {
         var db = req.db;
         var jobId = req.params.id;
         var collection = db.get('experimentlist');
+        console.log(req.body);
         collection.find({ _id : jobId },{},function(e,docs){
             if(docs.length>0) {
                 var job = docs[0];
                 if(job.running === true) {
-                    collection.update({'_id': jobId}, {$set: {running: false, date_stop: new Date()}});
+                    collection.update({'_id': jobId}, {$set: {running: false, result: req.body, date_stop: new Date()}});
                     res.send({msg: "Experiment has been stopped", running: false});
                 }
                 else {
+                    if(req.body) {
+                        collection.update({'_id': jobId}, {$set: {result: req.body}});
+                    }
                     res.send({msg: "Experiment already stopped", running: false});
                 }
             }
@@ -153,7 +157,7 @@ module.exports.set = function(app) {
     app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0};
+        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}};
         if(req.body) {
             job.configuration = req.body;
         }

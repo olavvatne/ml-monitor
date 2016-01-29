@@ -10,7 +10,7 @@ class ExperimentHistory extends React.Component {
 
     constructor() {
         super();
-        this.state = {events: [], configuration: {}}
+        this.state = {events: [], configuration: {}, result:{}}
     }
 
     componentWillReceiveProps(props) {
@@ -26,7 +26,11 @@ class ExperimentHistory extends React.Component {
             console.log(success);
             if(success.length >0) {
                 var experiment = success[0];
-                that.setState({events: experiment.events, configuration: experiment.configuration})
+                that.setState({
+                    events: experiment.events,
+                    configuration: experiment.configuration,
+                    result: experiment.result
+                });
             }
         };
         reqwest({
@@ -53,7 +57,10 @@ class ExperimentHistory extends React.Component {
                 </div>
                 <div className="mui-row">
                     <div className="mui-col-md-12">
-                        <ExperimentDetails details={experiment} configuration={this.state.configuration}></ExperimentDetails>
+                        <ExperimentDetails details={experiment}
+                                           configuration={this.state.configuration}
+                                           result={this.state.result}>
+                        </ExperimentDetails>
                     </div>
                 </div>
                 <div className="mui-row">

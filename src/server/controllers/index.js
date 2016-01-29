@@ -48,7 +48,7 @@ module.exports.set = function(app) {
         var db = req.db;
         var collection = db.get('experimentlist');
         //Events is excluded, because of potensial size in such a listing.
-        collection.find({},{fields: {events: 0}},function(e,docs){
+        collection.find({},{fields: {events: 0 , configuration: 0} , sort: [['date_start', 'asc']]},function(e,docs){
             docs = docs.reverse();
             let initData = JSON.stringify(docs);
             let content = React.renderToString(<Experiments data={initData} />);
