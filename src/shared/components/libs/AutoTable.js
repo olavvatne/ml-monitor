@@ -4,7 +4,7 @@ class Row extends React.Component {
 
     render() {
         if(this.props.header) {
-            var row = this.props.data.map((d, i) =>{return (<th key={i}>{d}</th>)});
+            var row = this.props.data.map((d, i) =>{return (<th key={i}>{d.split("_").join(" ")}</th>)});
             var content = <thead><tr>{row}</tr></thead>
         }
         else {
