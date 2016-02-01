@@ -7,28 +7,32 @@ class LineChart extends React.Component {
     constructor() {
         super();
         this.graph = null;
-        this.data = [{}, {}];
+        this.data = [];
         this.resize = this.handleResize.bind(this);
     }
 
 
     _createGraph() {
+        console.log("create-graph");
         this.graph = new Rickshaw.Graph( {
             element: this.refs.graph,
             width: this.refs.graph.clientWidth - 40,
+            height: 350,
             renderer: 'line',
             series:this.data
 
         } );
-        var xaxes = new Rickshaw.Graph.Axis.X(
-            {
-                graph: this.graph,
-                tickFormat: function(x) {if(Number.isInteger(x)) {return x;} return null; }
-            } );
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-            graph: this.graph
+        var tickFormatter = Rickshaw.Fixtures.Number.formatKMBT;
+        if (this.props.xAxisType === 'integer') {
+            tickFormatter = function(x) {if(Number.isInteger(x)) {return x;} return null; };
+        }
+        var xaxes = new Rickshaw.Graph.Axis.X({
+            graph: this.graph,
+            tickFormat: tickFormatter
         } );
+
+
 
 
         var yaxis = new Rickshaw.Graph.Axis.Y( {
@@ -37,12 +41,26 @@ class LineChart extends React.Component {
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
             element: this.refs.yaxis
         } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: this.graph,
+            xFormatter: function(x) {
+                if(x) {
+                    return parseFloat(x).toFixed(3) + "";
+                }
+                return  x;
+            }
+        } );
+
     }
 
-    _createSeries(name, color, data, dataKey) {
-        var newData = data.map((element => {
-            return {x: element.epoch, y: element[dataKey]}
-        }));
+    _createSeries(name, color, data, valY, valX) {
+        var newData = [];
+        if(data) {
+            newData = data.map((element => {
+                return {x: element[valX], y: element[valY]}
+            }));
+        }
 
         return {
             name: name,
@@ -52,12 +70,16 @@ class LineChart extends React.Component {
     }
     componentWillReceiveProps(props) {
         //Linechart specific to experiment events.
-        console.log(props);
+        console.log("RECIEVE PROPS", props);
         var palette = new Rickshaw.Color.Palette();
+        var xAxisKey = this.props.xAxisKey;
+        var yAxisKeys = this.props.yAxisKey;
 
-        this.data[0] = this._createSeries("Validation loss", palette.color(), props.data, "validation_loss");
-        this.data[1] = this._createSeries("Test loss", palette.color(), props.data, "test_loss");
-        //this.data[2] = this._createSeries("Training loss", palette.color(), props.data, "training_loss");
+        //Cant replace array, because of reference used when updating data.
+        this.data.splice(0,this.data.length);
+        for(var i = 0; i< yAxisKeys.length; i++) {
+                this.data.push(this._createSeries(yAxisKeys[i], palette.color(), props.data, yAxisKeys[i], xAxisKey));
+        }
 
         if(!this.graph) {
             this._createGraph();

@@ -241,9 +241,6 @@ $table-border: 7px;
   }
 }
 
-.x_label {
-  visibility: hidden;
-}
 
 #sign-in {
   float: right;
@@ -284,7 +281,7 @@ $table-border: 7px;
 .comment {
   textarea {
     width: 100%;
-    height: 200px;
+    height: 150px;
   }
 
   span {

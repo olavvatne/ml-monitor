@@ -11,7 +11,7 @@ class ExperimentHistory extends React.Component {
 
     constructor() {
         super();
-        this.state = {events: [], configuration: {}, result:{}, comment: ""}
+        this.state = {events: [], configuration: {}, result:{}, comment: "", curve: []}
     }
 
     componentWillReceiveProps(props) {
@@ -24,14 +24,18 @@ class ExperimentHistory extends React.Component {
         var experimentId = props.experiment._id;
         var that = this;
         var succ = function(success) {
-            console.log(success);
             if(success.length >0) {
                 var experiment = success[0];
+                if(experiment.curve) {
+                    experiment.curve = experiment.curve.sort(function(a, b) {a['recall'] - b['recall']})
+                    experiment.curve.reverse()
+                }
                 that.setState({
                     events: experiment.events,
                     configuration: experiment.configuration,
                     result: experiment.result,
-                    comment: experiment.comment
+                    comment: experiment.comment,
+                    curve: experiment.curve
                 });
             }
         };
@@ -48,15 +52,29 @@ class ExperimentHistory extends React.Component {
 
         var experiment = this.props.experiment;
         var isExperiment = experiment._id ? true: false;
-
+        var chartYAxisKeys = ['validation_loss', 'test_loss'];
+        var curveY = ['precision'];
         return isExperiment ? (
            <div className="experiments__content">
                <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove}/>
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                         <LineChart data={this.state.events}></LineChart>
+                         <LineChart data={this.state.events} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
+                         </LineChart>
                     </div>
                 </div>
+
+               <div className="mui-row">
+                   <div className="mui-col-md-12">
+                       <LineChart data={this.state.curve} xAxisKey={'recall'} yAxisKey={curveY}></LineChart>
+                   </div>
+               </div>
+
+               <div className="mui-row">
+                   <div className="mui-col-md-12">
+                       <ExperimentComment comment={this.state.comment} eid={experiment._id}></ExperimentComment>
+                   </div>
+               </div>
 
                 <div className="mui-row">
                     <div className="mui-col-md-12">
@@ -66,17 +84,14 @@ class ExperimentHistory extends React.Component {
                         </ExperimentDetails>
                     </div>
                 </div>
+
                 <div className="mui-row">
                     <div className="mui-col-md-12">
                         <ExperimentEvents events={this.state.events}></ExperimentEvents>
                     </div>
                 </div>
 
-               <div className="mui-row">
-                   <div className="mui-col-md-12">
-                       <ExperimentComment comment={this.state.comment} eid={experiment._id}></ExperimentComment>
-                   </div>
-               </div>
+
 
                <div className="mui-row">
                    <div className="mui-col-md-12">

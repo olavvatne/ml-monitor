@@ -5,7 +5,7 @@ import React from "react";
 import Experiments from "../../shared/components/Experiments";
 import Frontpage from "../../shared/components/Frontpage";
 import SignIn from "../../shared/components/SignIn";
-
+import experiment from "../database"
 
 module.exports.set = function(app) {
 
@@ -21,10 +21,7 @@ module.exports.set = function(app) {
     };
 
     app.get('/', function (req, res) {
-        //TODO: Duplicate code, can possibly use callback functions for these two, to reduce duplicate code.
-        var db = req.db;
-        var collection = db.get('experimentlist');
-        collection.find({ running : {$eq: true}},{},function(e,docs){
+        var callback = function(err, docs) {
             let initData = JSON.stringify(docs);
             let content = React.renderToString(<Frontpage data={initData}  />);
             let signIn = React.renderToString(<SignIn />);
@@ -40,15 +37,12 @@ module.exports.set = function(app) {
                 data:initData
             };
             res.render('pages/default-page', templateData);
-        });
+        }
+        experiment.getRunningJobs(req.db, callback);
     });
 
     app.get('/experiments', function(req, res) {
-        //TODO: Duplicate code, but React need this data here. Implement common function and promises to get this working
-        var db = req.db;
-        var collection = db.get('experimentlist');
-        //Events is excluded, because of potensial size in such a listing.
-        collection.find({},{fields: {events: 0 , configuration: 0} , sort: [['date_start', 'asc']]},function(e,docs){
+        var callback = function(e,docs){
             docs = docs.reverse();
             let initData = JSON.stringify(docs);
             let content = React.renderToString(<Experiments data={initData} />);
@@ -64,8 +58,8 @@ module.exports.set = function(app) {
                 data:initData
             };
             res.render('pages/default-page', templateData);
-        });
-
+        };
+        experiment.getExperimentList(req.db, callback);
     });
 
 // ===== KEEP THIS AT THE BOTTOM ======= , handles 404 errors

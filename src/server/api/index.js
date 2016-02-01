@@ -1,4 +1,5 @@
 import express from "express";
+import experiment from "../database";
 
 module.exports.set = function(app) {
 
@@ -62,12 +63,10 @@ module.exports.set = function(app) {
 
     //For experiments list in interface.
     app.get('/job', function (req, res) {
-        var db = req.db;
-        var collection = db.get('experimentlist');
-        //Events is excluded, because of potensial size in such a listing.
-        collection.find({},{fields: {events: 0, configuration: 0}, sort: [['date_start', 'asc']]},function(e,docs){
+        var callback = function(err, docs) {
             res.json(docs);
-        });
+        };
+        experiment.getExperimentList(req.db, callback);
     });
 
     //Get overview of specific job.
@@ -149,6 +148,24 @@ module.exports.set = function(app) {
         });
     });
 
+    //Adding precision recall curve datapoints to database
+    app.post('/job/:id/precision-recall-curve',ensureAuthorized, function (req, res) {
+        var db = req.db;
+        var jobId = req.params.id;
+        var datapoints = req.body;
+        var collection = db.get('experimentlist');
+        collection.find({ _id : jobId },{},function(e,docs){
+            if(docs.length>0) {
+                var job = docs[0];
+                collection.update({'_id': jobId}, {$set: {curve: datapoints}});
+                res.send({msg: "Datapoints have been saved"});
+            }
+            else {
+                res.send({msg: "Not found", running: false});
+            }
+        });
+    });
+
     //Machine learning algo use this interface to send progress report. Data stored in db.
     app.post('/job/:id/update', ensureAuthorized, function (req, res) {
         //TODO: Validation of body
@@ -189,11 +206,10 @@ module.exports.set = function(app) {
     //For interface. Returns running job. Called from front page.
     app.get('/current-job', function (req, res) {
         //TODO: Events or not, or the last ten events or something
-        var db = req.db;
-        var collection = db.get('experimentlist');
-        collection.find({ running : {$eq: true}},{},function(e,docs){
+        var callback = function(err, docs) {
             res.json(docs);
-        });
+        };
+        experiment.getRunningJobs(req.db, callback);
     });
 
 

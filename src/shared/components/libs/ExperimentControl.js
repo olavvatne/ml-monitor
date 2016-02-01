@@ -27,6 +27,7 @@ class ExperimentControl extends React.Component {
     render() {
         var experiment = this.props.experiment;
         var graphEvents = [];
+        var chartYAxisKeys = ['validation_loss', 'test_loss'];
         if(this.state.showGraph) {
             graphEvents = experiment.events;
         }
@@ -35,7 +36,9 @@ class ExperimentControl extends React.Component {
                 <Controls eid={experiment._id} running={experiment.running}/>
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                        <LineChart data={graphEvents}></LineChart>
+                        <LineChart data={graphEvents} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
+
+                        </LineChart>
                     </div>
                 </div>
                 <div className="mui-row frontpage_table">
