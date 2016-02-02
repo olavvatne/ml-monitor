@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.3.1] - 2016-02-02
+### Fixed
+- Safari fix. key for React components in SignIn.
+- Moment server/client time rendered the same
+
 ## [1.3.0] - 2016-02-01
 ### Added
 - Precision and recall curve
@@ -43,7 +48,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Simple token authentication scheme to protect certain endpoints.
 - Storing and retrieving experiments via MongoDB.
 
-[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.1
 [1.3.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.0
 [1.2.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.2.0
 [1.1.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.1.0
