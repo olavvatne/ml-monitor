@@ -23,7 +23,7 @@ class List extends React.Component {
             let isActive = this.state.active._id === experiment._id? "active": "";
             return (
                 <li className={isActive} key={experiment._id}><a onClick={handler}>
-                    {moment.utc(experiment.date_start).local().format("HH:mm:ss DD-MM-YYYY")}
+                    {moment(experiment.date_start).utcOffset('+0100').format("HH:mm:ss DD-MM-YYYY")}
                 </a></li>)
         });
         return (

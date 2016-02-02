@@ -51,7 +51,7 @@ class ExperimentControl extends React.Component {
             <div className="experiments">
                 <div className="experiments__bar" onClick={this._toggle}>
                     <ul>
-                        <li>Started: {moment.utc(experiment.date_start).local().format("HH:mm:ss DD-MM-YYYY")}</li>
+                        <li>Started: {moment(experiment.date_start).utcOffset('+0100').format("HH:mm:ss DD-MM-YYYY")}</li>
                         <li>Duration: <Duration start={experiment.date_start} stop={experiment.date_stop} /></li>
                         <li>Status: <Label show={experiment.running}></Label></li>
                     </ul>
