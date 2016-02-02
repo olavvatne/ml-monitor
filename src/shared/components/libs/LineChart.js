@@ -26,6 +26,7 @@ class LineChart extends React.Component {
         var tickFormatter = Rickshaw.Fixtures.Number.formatKMBT;
         if (this.props.xAxisType === 'integer') {
             tickFormatter = function(x) {
+                //For safari
                 function isInteger(x) {
                     return (typeof x === 'number') && (x % 1 === 0);
                 }

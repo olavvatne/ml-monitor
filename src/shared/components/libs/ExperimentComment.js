@@ -51,7 +51,10 @@ class ExperimentComment extends React.Component {
                    ref="comment"
                    value={this.state.value}
                    onChange={this._handleChange}/>
-               <UIButton label="Save" primary={true} onClick={this._comment}></UIButton>
+               <div style={{display: "block"}}>
+                   <UIButton label="Save" primary={true} onClick={this._comment}></UIButton>
+               </div>
+
                <span>{this.state.saved? "Comment saved": ""}</span>
                <span>{this.state.changed? "Unsaved changes": ""}</span>
            </div>
