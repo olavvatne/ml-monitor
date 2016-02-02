@@ -10,9 +10,10 @@ import mongo from 'mongod';
 import monk from 'monk';
 var bodyParser = require('body-parser');
 
+process.env.TZ = 'Europe/Oslo';
+
 const db = monk('localhost:27017/ml-monitor');
 const app = express();
-
 app.set("env", process.env.NODE_ENV || "development");
 app.set("port", process.env.PORT || 3000);
 
@@ -24,6 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(favicon( './public/images/favicon/favicon.ico'));
 
+process.env.TZ = 'America/Los_Angeles';
 var srcPath = './';
 var destPath = './public';
 
