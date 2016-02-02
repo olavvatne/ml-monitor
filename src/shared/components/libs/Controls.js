@@ -31,7 +31,7 @@ class Controls extends React.Component {
                 this.createNotification('success', 'Debugging', 'System will output images shortly');
             },
             error: (error) => {
-                this.createNotification('error', 'Problem', 'Could not stop. Probably token');
+                this.createNotification('error', 'Problem', 'Could not debug. Probably token');
             }
         });
     }

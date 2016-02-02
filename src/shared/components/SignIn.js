@@ -76,15 +76,16 @@ class SignIn extends React.Component {
         }
         this.setState({signedIn: signedIn});
     }
+
     render() {
         return (
             <form>
-                <Notifications notifications={this.state.notifications} onRequestHide={this._notification}/>
+                <Notifications notifications={this.state.notifications} onRequestHide={this._notification} key="notif"/>
                 {!this.state.signedIn? [
                         <UIText labelText={"User"} ref="user" key="user" />,
                         <UIText labelText={"Password"} ref="password" type={"password"} key="password" />,
 
-                <UIButton primary={true} label={'Sign in'} onClick={this._signIn}/> ]:null}
+                <UIButton primary={true} label={'Sign in'} onClick={this._signIn} key="button"/> ]:null}
                 {this.state.signedIn? <div className="signed-in" onClick={this._signOut}> &#10003;</div> :null}
             </form>
         );
