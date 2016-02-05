@@ -4,6 +4,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.3.2] - 2016-02-05
+### Fixed
+- Precision recall sort function fix.
+- Moment server/client time rendered the same
+
+### Changed
+- When stopping experiment, remove button is displayed (before reload).
+- Epoch 0 is not displayed in chart.
+
+### Added
+- Preview slider for charts
+
 ## [1.3.1] - 2016-02-02
 ### Fixed
 - Safari fix. key for React components in SignIn.
