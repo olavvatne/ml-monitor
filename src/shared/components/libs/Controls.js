@@ -9,7 +9,7 @@ import Notifications from 'react-notifications';
 class Controls extends React.Component {
     constructor() {
         super();
-        this.state = {open: false, notifications: []};
+        this.state = {open: false, stopping: false, notifications: []};
         this._stop = this._stopExperiment.bind(this);
         this._debug = this._debugExperiment.bind(this);
         this._remove = this._removeExperiment.bind(this);
@@ -52,6 +52,7 @@ class Controls extends React.Component {
                 "authorization": token
             },
             success: (success) => {
+                this.setState({stopping: true});
                 this.createNotification('success', 'Stopping', 'System stop experiment and save parameters');
             },
             error: (error) => {
@@ -113,8 +114,8 @@ class Controls extends React.Component {
             <div className="mui-row">
                 <div className="mui-col-md-12 controls">
                     <Notifications notifications={this.state.notifications} onRequestHide={this._notification}/>
-                    {this.props.running ? <UIButton label="Stop" danger={true} onClick={this._stop}></UIButton> : null}
-                    {this.props.running ? <UIButton label="Debug" primary={true} onClick={this._debug}></UIButton> : null}
+                    {this.props.running && !this.state.stopping ? <UIButton label="Stop" danger={true} onClick={this._stop}></UIButton> : null}
+                    {this.props.running && !this.state.stopping ? <UIButton label="Debug" primary={true} onClick={this._debug}></UIButton> : null}
                     {!this.props.running ?
                         <UIButton label="Remove" danger={true} onClick={this._remove}></UIButton> : null}
                 </div>
