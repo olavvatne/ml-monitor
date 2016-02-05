@@ -52,6 +52,16 @@ class ExperimentHistory extends React.Component {
 
         var experiment = this.props.experiment;
         var isExperiment = experiment._id ? true: false;
+
+        var graphEvents = [];
+        if(this.state.events) {
+            graphEvents = this.state.events;
+            //Remove epoch 0, Since the difference between 0 and 1 is so big. Do not reveal training progress at all.
+            if(graphEvents.length > 0 && graphEvents[0].epoch === 0) {
+                graphEvents.shift();
+            }
+        }
+
         var chartYAxisKeys = ['validation_loss', 'test_loss'];
         var curveY = ['precision'];
         return isExperiment ? (
@@ -59,7 +69,7 @@ class ExperimentHistory extends React.Component {
                <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove}/>
                 <div className="mui-row" style={{height:"300px"}}>
                     <div className="mui-col-md-12">
-                         <LineChart data={this.state.events} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
+                         <LineChart data={graphEvents} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
                          </LineChart>
                     </div>
                 </div>

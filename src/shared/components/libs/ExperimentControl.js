@@ -30,6 +30,9 @@ class ExperimentControl extends React.Component {
         var chartYAxisKeys = ['validation_loss', 'test_loss'];
         if(this.state.showGraph) {
             graphEvents = experiment.events;
+            if(graphEvents.length > 0 && graphEvents[0].epoch === 0) {
+                graphEvents.shift();
+            }
         }
         return (
             <div className="experiments__content">
