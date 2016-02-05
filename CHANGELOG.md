@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - When stopping experiment, remove button is displayed (before reload).
 - Epoch 0 is not displayed in chart.
+- One more digit for chart hover
 
 ### Added
 - Preview slider for charts
@@ -60,7 +61,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Simple token authentication scheme to protect certain endpoints.
 - Storing and retrieving experiments via MongoDB.
 
-[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.3.2...HEAD
+[1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.2
 [1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.1
 [1.3.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.0
 [1.2.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.2.0
