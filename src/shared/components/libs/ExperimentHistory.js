@@ -53,7 +53,7 @@ class ExperimentHistory extends React.Component {
         var experiment = this.props.experiment;
         var isExperiment = experiment._id ? true: false;
 
-        var graphEvents = [];
+        var graphEvents = null;
         if(this.state.events) {
             graphEvents = this.state.events;
             //Remove epoch 0, Since the difference between 0 and 1 is so big. Do not reveal training progress at all.

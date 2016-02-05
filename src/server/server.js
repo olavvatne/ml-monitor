@@ -60,7 +60,7 @@ moveFile('./node_modules/react-notifications/lib/notifications.css', './public/s
 moveFile('./node_modules/rickshaw/rickshaw.min.css', './public/style/rickshaw.min.css');
 moveFile('./node_modules/rickshaw/rickshaw.min.js', './public/js/rickshaw.min.js');
 moveFile('./node_modules/rickshaw/vendor/d3.layout.min.js', './public/js/d3.layout.min.js');
-moveFile('./node_modules/rickshaw/vendor/d3.min.js', './public/js/d3.min.js');
+moveFile('./node_modules/rickshaw/vendor/d3.v3.js', './public/js/d3.v3.js');
 
 
 

@@ -17,6 +17,7 @@ class LineChart extends React.Component {
         this.graph = new Rickshaw.Graph( {
             element: this.refs.graph,
             width: this.refs.graph.clientWidth - 40,
+            interpolation: 'linear',
             height: 350,
             renderer: 'line',
             series:this.data
@@ -33,13 +34,10 @@ class LineChart extends React.Component {
                 if(isInteger(x)) {return x;} return null;
             };
         }
-        var xaxes = new Rickshaw.Graph.Axis.X({
+        var xaxis = new Rickshaw.Graph.Axis.X({
             graph: this.graph,
             tickFormat: tickFormatter
         } );
-
-
-
 
         var yaxis = new Rickshaw.Graph.Axis.Y( {
             graph: this.graph,
@@ -47,6 +45,11 @@ class LineChart extends React.Component {
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
             element: this.refs.yaxis
         } );
+
+        var slider = new Rickshaw.Graph.RangeSlider({
+            graph: this.graph,
+            element: this.refs.preview
+        });
 
         var hoverDetail = new Rickshaw.Graph.HoverDetail( {
             graph: this.graph,
@@ -119,11 +122,13 @@ class LineChart extends React.Component {
         let chartStyle = {  position: "relative", left: "40px"};
         let axisStyle = {    position: "absolute", top: "0", bottom: "0", width: "40px"};
         let legendStyle = { display: "inline-block", verticalAlign: "top", margin: "0 0 0 10px"};
+        let previewStyle = { left: "40px", marginTop: "10px"};
         return (
             <div>
                 <div style={containerStyle}>
                     <div ref="yaxis" style={axisStyle}></div>
                     <div ref="graph" style={chartStyle}></div>
+                    <div ref="preview" style={previewStyle}></div>
                 </div>
                 <div ref="legend" style={legendStyle}></div>
             </div>
