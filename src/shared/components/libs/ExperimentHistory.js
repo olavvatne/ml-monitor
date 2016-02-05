@@ -27,8 +27,9 @@ class ExperimentHistory extends React.Component {
             if(success.length >0) {
                 var experiment = success[0];
                 if(experiment.curve) {
-                    experiment.curve = experiment.curve.sort(function(a, b) {a['recall'] - b['recall']})
-                    experiment.curve.reverse()
+                    console.log("FIX IT");
+                    experiment.curve = experiment.curve.sort(function(a, b) {return a.recall - b.recall});
+                    console.log(experiment.curve);
                 }
                 that.setState({
                     events: experiment.events,
@@ -53,7 +54,7 @@ class ExperimentHistory extends React.Component {
         var experiment = this.props.experiment;
         var isExperiment = experiment._id ? true: false;
 
-        var graphEvents = null;
+        var graphEvents = [];
         if(this.state.events) {
             graphEvents = this.state.events;
             //Remove epoch 0, Since the difference between 0 and 1 is so big. Do not reveal training progress at all.
@@ -67,7 +68,7 @@ class ExperimentHistory extends React.Component {
         return isExperiment ? (
            <div className="experiments__content">
                <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove}/>
-                <div className="mui-row" style={{height:"300px"}}>
+                <div className="mui-row" style={{height:"400px"}}>
                     <div className="mui-col-md-12">
                          <LineChart data={graphEvents} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
                          </LineChart>
