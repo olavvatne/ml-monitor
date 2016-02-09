@@ -2,6 +2,7 @@ import React from "react";
 import ExperimentDetails from "./ExperimentDetails.js";
 import ExperimentEvents from "./ExperimentEvents.js";
 import ExperimentComment from "./ExperimentComment.js";
+import ExperimentImages from "./ExperimentImages.js";
 import LineChart from "./LineChart.js";
 import Controls from "./Controls.js";
 import reqwest from "reqwest";
@@ -11,7 +12,7 @@ class ExperimentHistory extends React.Component {
 
     constructor() {
         super();
-        this.state = {events: [], configuration: {}, result:{}, comment: "", curve: []}
+        this.state = {events: [], configuration: {}, result:{}, comment: "", curve: [], images: []}
     }
 
     componentWillReceiveProps(props) {
@@ -27,7 +28,6 @@ class ExperimentHistory extends React.Component {
             if(success.length >0) {
                 var experiment = success[0];
                 if(experiment.curve) {
-                    console.log("FIX IT");
                     experiment.curve = experiment.curve.sort(function(a, b) {return a.recall - b.recall});
                     console.log(experiment.curve);
                 }
@@ -36,7 +36,8 @@ class ExperimentHistory extends React.Component {
                     configuration: experiment.configuration,
                     result: experiment.result,
                     comment: experiment.comment,
-                    curve: experiment.curve
+                    curve: experiment.curve,
+                    images: experiment.images
                 });
             }
         };
@@ -87,6 +88,9 @@ class ExperimentHistory extends React.Component {
                    </div>
                </div>
 
+               <div className="mui-row">
+                   <ExperimentImages images={this.state.images}></ExperimentImages>
+               </div>
                 <div className="mui-row">
                     <div className="mui-col-md-12">
                         <ExperimentDetails details={experiment}

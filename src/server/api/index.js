@@ -190,7 +190,7 @@ module.exports.set = function(app, public_path) {
     app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}};
+        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}, images: []};
         if(req.body) {
             job.configuration = req.body;
         }
@@ -243,18 +243,33 @@ module.exports.set = function(app, public_path) {
     });
 
     //Storing images for a job
-    app.post('/job/:id/result-images',ensureAuthorized, function (req, res) {
+    app.post('/job/:id/result-image',ensureAuthorized, function (req, res) {
         var db = req.db;
         var collection = db.get('experimentlist');
         var jobId = req.params.id;
-        var save_dir = public_path + '/images/experiment/' + jobId;
+        var saveDir = public_path + '/images/experiment/' + jobId;
 
-        if (!fs.existsSync(save_dir)){
-            fs.mkdirSync(save_dir);
+        var imageId = 0;
+        if (!fs.existsSync(saveDir)){
+            fs.mkdirSync(saveDir);
+        }
+        else {
+            var list = fs.readdirSync(saveDir);
+            imageId = list.length
         }
 
-        fs.writeFile(save_dir + '/test.jpeg', new Buffer(req.body.prediction, "base64"), function (err) {
-            res.json({"msg": "yes"});
+        var fileDir = '/img'+ imageId+'.jpeg';
+        var urlRecord = '/images/experiment/' + jobId + fileDir;
+        fs.writeFile(saveDir + fileDir, new Buffer(req.body.image, "base64"), function (err) {
+            collection.update({_id: jobId}, {$push:{images: urlRecord}}, function(err, result) {
+                if(!err) {
+                    res.send({msg: "Image added"});
+                }
+                else {
+                    res.send({msg: "Could not add the image"});
+                }
+            });
+
         });
 
 
