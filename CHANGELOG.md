@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.4.0] - 2016-02-09
+### Added
+-Image upload endpoint
+-Displays experiment images
+
 ## [1.3.2] - 2016-02-05
 ### Fixed
 - Precision recall sort function fix.
@@ -61,7 +66,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Simple token authentication scheme to protect certain endpoints.
 - Storing and retrieving experiments via MongoDB.
 
-[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/olavvatne/ml-monitor/compare/v1.4.0...HEAD
+[1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.4.0
 [1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.2
 [1.3.1]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.1
 [1.3.0]: https://github.com/olavvatne/ml-monitor/releases/tag/v1.3.0
