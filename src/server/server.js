@@ -17,7 +17,7 @@ const app = express();
 app.set("env", process.env.NODE_ENV || "development");
 app.set("port", process.env.PORT || 3000);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '2mb'}));
 
 app.engine('ejs', engine);//Support for layout for templates
 app.set('view engine', 'ejs');
@@ -116,7 +116,7 @@ app.use(function(req,res,next){
     next();
 });
 
-serverApi.set(app);
+serverApi.set(app, destPath);
 controllers.set(app);
 
 

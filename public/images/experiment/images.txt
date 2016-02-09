@@ -1,0 +1,1 @@
+Image uploaded to ml-monitor stored inside this directory. A folder is created for each experiment.

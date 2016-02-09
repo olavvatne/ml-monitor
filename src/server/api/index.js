@@ -1,7 +1,8 @@
 import express from "express";
 import experiment from "../database";
+import fs from 'fs';
 
-module.exports.set = function(app) {
+module.exports.set = function(app, public_path) {
 
     /*================SIMPLE AUTHENTICATION==============================================*/
     /*Simple static token based authentication system. Ensures that destructive endpoints can only be called by
@@ -241,4 +242,21 @@ module.exports.set = function(app) {
         });
     });
 
+    //Storing images for a job
+    app.post('/job/:id/result-images',ensureAuthorized, function (req, res) {
+        var db = req.db;
+        var collection = db.get('experimentlist');
+        var jobId = req.params.id;
+        var save_dir = public_path + '/images/experiment/' + jobId;
+
+        if (!fs.existsSync(save_dir)){
+            fs.mkdirSync(save_dir);
+        }
+
+        fs.writeFile(save_dir + '/test.jpeg', new Buffer(req.body.prediction, "base64"), function (err) {
+            res.json({"msg": "yes"});
+        });
+
+
+    });
 };
