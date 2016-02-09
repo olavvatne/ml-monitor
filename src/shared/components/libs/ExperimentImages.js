@@ -8,9 +8,12 @@ class ExperimentImages extends React.Component {
 
 
     render() {
-        let imageDiv = this.props.images.map(url => {
-           return (<a href={url} target="_blank"><img src={url} alt="experiment image"/></a>)
-        });
+        let imageDiv = null;
+        if(this.props.images) {
+            imageDiv = this.props.images.map(url => {
+                return (<a href={url} target="_blank"><img src={url} alt="experiment image"/></a>)
+            });
+        }
         return (
             <div className="images">
                 {imageDiv}
