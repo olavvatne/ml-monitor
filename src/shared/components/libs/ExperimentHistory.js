@@ -64,7 +64,7 @@ class ExperimentHistory extends React.Component {
             }
         }
 
-        var chartYAxisKeys = ['validation_loss', 'test_loss'];
+        var chartYAxisKeys = ['validation_loss', 'test_loss', 'training_loss'];
         var curveY = ['precision'];
         return isExperiment ? (
            <div className="experiments__content">
