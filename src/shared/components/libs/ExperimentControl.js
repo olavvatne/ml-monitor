@@ -27,7 +27,7 @@ class ExperimentControl extends React.Component {
     render() {
         var experiment = this.props.experiment;
         var graphEvents = [];
-        var chartYAxisKeys = ['validation_loss', 'test_loss', training_loss];
+        var chartYAxisKeys = ['validation_loss', 'test_loss', 'training_loss'];
         if(this.state.showGraph) {
             graphEvents = experiment.events;
             if(graphEvents.length > 0 && graphEvents[0].epoch === 0) {
