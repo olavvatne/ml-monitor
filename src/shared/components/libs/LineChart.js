@@ -131,7 +131,9 @@ class LineChart extends React.Component {
         this.graph.configure({
             width: this.refs.graph.clientWidth -40,
         });
-        this.graph.render();
+        if(this.graph) {
+            this.graph.render();
+        }
     }
 
     componentWillMount() {
@@ -139,10 +141,7 @@ class LineChart extends React.Component {
     }
 
     componentDidMount() {
-        /*if(!this.graph) {
-            this._createGraph();
-        }*/
-        //window.addEventListener('resize', this.resize);
+        window.addEventListener('resize', this.resize);
     }
 
     clear() {
