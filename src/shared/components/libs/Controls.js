@@ -116,7 +116,7 @@ class Controls extends React.Component {
                     <Notifications notifications={this.state.notifications} onRequestHide={this._notification}/>
                     {this.props.running && !this.state.stopping ? <UIButton label="Stop" danger={true} onClick={this._stop}></UIButton> : null}
                     {this.props.running && !this.state.stopping ? <UIButton label="Debug" primary={true} onClick={this._debug}></UIButton> : null}
-                    {!this.props.running ?
+                    {!this.props.running || this.state.stopping ?
                         <UIButton label="Remove" danger={true} onClick={this._remove}></UIButton> : null}
                 </div>
             </div>

@@ -4,10 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.4.1] - 2016-02-20
+
+### Fixed
+- rickshaw chart destroyed and created on page switch. Slightly better than previous solution.
+- Remove button immediately displayed after stopping.
+
 ## [1.4.0] - 2016-02-09
 ### Added
--Image upload endpoint
--Displays experiment images
+- Image upload endpoint
+- Displays experiment images
 
 ## [1.3.2] - 2016-02-05
 ### Fixed

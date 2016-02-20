@@ -69,7 +69,7 @@ class ExperimentHistory extends React.Component {
         return isExperiment ? (
            <div className="experiments__content">
                <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove}/>
-                <div className="mui-row" style={{height:"400px"}}>
+                <div className="mui-row">
                     <div className="mui-col-md-12">
                          <LineChart data={graphEvents} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">
                          </LineChart>
