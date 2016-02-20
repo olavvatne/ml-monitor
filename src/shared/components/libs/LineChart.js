@@ -8,7 +8,7 @@ class LineChart extends React.Component {
         super();
         this.graph = null;
         this.data = [];
-        this.state = {renderChart: false}
+        this.state = {renderChart: false};
         this.resize = this.handleResize.bind(this);
     }
 
@@ -78,8 +78,13 @@ class LineChart extends React.Component {
     _createSeries(name, color, data, valY, valX) {
         var newData = [];
         if(data) {
+            console.log(data);
             newData = data.map((element => {
-                return {x: element[valX], y: element[valY]}
+                var y = null;
+                if(element[valY]) {
+                    y = element[valY]
+                }
+                return {x: element[valX], y: y}
             }));
         }
 
@@ -91,8 +96,7 @@ class LineChart extends React.Component {
     }
     componentWillReceiveProps(props) {
         //Linechart specific to experiment events.
-        console.log("RECIEVE PROPS");
-        console.log(props.data);
+
         var palette = new Rickshaw.Color.Palette();
         var xAxisKey = this.props.xAxisKey;
         var yAxisKeys = this.props.yAxisKey;
@@ -102,7 +106,6 @@ class LineChart extends React.Component {
         for(var i = 0; i< yAxisKeys.length; i++) {
                 this.data.push(this._createSeries(yAxisKeys[i], palette.color(), props.data, yAxisKeys[i], xAxisKey));
         }
-        console.log(this.data);
         this.clear();
         /*if(props.data || true) {
             this.graph.render();
@@ -111,14 +114,11 @@ class LineChart extends React.Component {
     }
 
     componentDidUpdate(prevState, newState) {
-        console.log("COMPONENT UPDATE")
         if(!this.state.renderChart) {
             this.setState({renderChart: true});
 
-            console.log(" SCHEDULE RENDER DIVS")
         }
-        else if(!this.graph) {
-            console.log("CREATE GRAPH")
+        else if(!this.graph && this.data.length >0 ) {
             this._createGraph();
 
         }
@@ -127,7 +127,6 @@ class LineChart extends React.Component {
     }
 
     handleResize() {
-        console.log(this.refs.graph);
         this.graph.configure({
             width: this.refs.graph.clientWidth -40,
         });
@@ -145,18 +144,15 @@ class LineChart extends React.Component {
     }
 
     clear() {
-        console.log("DESTROY CHART")
         this.graph = null;
         this.setState({renderChart: false});
     }
 
     render() {
-        console.log("RENDER ", this.state.renderChart)
+
         if(!this.state.renderChart) {
-            console.log("EMPTY");
             return (<div>{this.state.renderChart}</div>)
         }
-
         let containerStyle = {position: "relative", fontFamily: "Arial"};
         /*if(this.state.data.length <= 0) {
             containerStyle.visibility = "hidden";
