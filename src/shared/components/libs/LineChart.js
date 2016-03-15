@@ -61,7 +61,7 @@ class LineChart extends React.Component {
             },
             yFormatter: function(y) {
                 if(y) {
-                    return parseFloat(y).toFixed(3) + "";
+                    return parseFloat(y).toFixed(5) + "";
                 }
                 return  y;
             }
