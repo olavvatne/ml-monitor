@@ -62,7 +62,18 @@ class Group extends React.Component {
             delete exp[group.gid];
             this.setState({groupData: exp});
         }
+    }
 
+    removeJobFromList(groupId, jobId) {
+        var groupData = this.state.groupData;
+        var experiments = groupData[groupId];
+        for( var i =0; i< experiments.length; i++) {
+            if(experiments[i]._id === jobId) {
+                experiments.splice(i, 1);
+                this.setState({groupData: groupData});
+                return;
+            }
+        }
     }
 
     render() {
@@ -108,14 +119,8 @@ class Experiments extends React.Component {
 
     //TODO: handle, this shit
     _handleRemoveJob() {
-        var experiments = this.state.experiments;
-        for( var i =0; i< experiments.length; i++) {
-            if(experiments[i]._id === this.state.display._id) {
-                experiments.splice(i, 1);
-                this.setState({experiments: experiments, display: {}});
-                return;
-            }
-        }
+        this.refs.list.removeJobFromList(this.state.display.gid, this.state.display._id);
+        this.setState({display: {}});
     }
 
     render() {
