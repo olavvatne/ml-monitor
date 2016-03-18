@@ -28,7 +28,7 @@ class UISelect extends React.Component {
     render() {
         //TODO: Value
         let items = this.props.menuItems.map(menu => {
-            return (<option value={menu.payload}>{menu.text}</option>)
+            return (<option value={menu.payload} key={menu.payload}>{menu.text}</option>)
         });
         //TODO: Change state!
         return (

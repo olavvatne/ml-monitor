@@ -29,7 +29,6 @@ class ExperimentHistory extends React.Component {
                 var experiment = success[0];
                 if(experiment.curve) {
                     experiment.curve = experiment.curve.sort(function(a, b) {return a.recall - b.recall});
-                    console.log(experiment.curve);
                 }
                 that.setState({
                     events: experiment.events,
@@ -68,7 +67,7 @@ class ExperimentHistory extends React.Component {
         var curveY = ['precision'];
         return isExperiment ? (
            <div className="experiments__content">
-               <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove}/>
+               <Controls eid={experiment._id} running={experiment.running} onRemove={this.props.onRemove} groups={this.props.groups}/>
                 <div className="mui-row">
                     <div className="mui-col-md-12">
                          <LineChart data={graphEvents} xAxisKey={'epoch'} yAxisKey={chartYAxisKeys} xAxisType="integer">

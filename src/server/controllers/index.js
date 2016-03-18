@@ -59,7 +59,7 @@ module.exports.set = function(app) {
             };
             res.render('pages/default-page', templateData);
         };
-        experiment.getExperimentList(req.db, callback);
+        experiment.getGroupList(req.db, callback);
     });
 
 // ===== KEEP THIS AT THE BOTTOM ======= , handles 404 errors

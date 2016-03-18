@@ -70,6 +70,14 @@ module.exports.set = function(app, public_path) {
         experiment.getExperimentList(req.db, callback);
     });
 
+    //For nesting. Instead of getting everything. Only expanded list.
+    app.get('/job/group/:gid', function (req, res) {
+        var callback = function(err, docs) {
+            res.json(docs);
+        };
+        experiment.getExperimentList(req.db, callback, parseInt(req.params.gid));
+    });
+
     //Get overview of specific job.
     app.get('/job/:id', function (req, res) {
         var db = req.db;
@@ -190,7 +198,8 @@ module.exports.set = function(app, public_path) {
     app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}, images: []};
+        var job = {
+            running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}, images: [], gid: 0};
         if(req.body) {
             job.configuration = req.body;
         }
@@ -272,6 +281,63 @@ module.exports.set = function(app, public_path) {
 
         });
 
+
+    });
+
+
+    //============List experiment groups==============
+    //To many experiments. Api endpoints to create, delete groups. And assign experiment to a group
+
+    //Post new group. Id and name
+    app.post('/group',ensureAuthorized, function (req, res) {
+        //TODO: Validation of body
+        var db = req.db;
+
+        if(!req.body || ! req.body.name || req.body.name.length == 0) {
+            res.send({msg: "No group name sent"});
+        }
+
+        var group = {name: req.body.name,  date_created: new Date()};
+        var collection = db.get('grouplist');
+        collection.count({}, function(e, numOfDocs) {
+            group.gid = numOfDocs;
+            collection.insert(group, function(err, result){
+                res.send(
+                    (err === null) ? { id: result._id } : { msg: err }
+                );
+            });
+        });
+    });
+
+    //Get group list
+    app.get('/group', function (req, res) {
+        var callback = function(err, docs) {
+            res.json(docs);
+        };
+        experiment.getGroupList(req.db, callback);
+    });
+
+    //Change group of a job. Gid must be in payload
+    app.post('/job/:id/group',ensureAuthorized, function (req, res) {
+        var db = req.db;
+
+        if(!req.body || req.body.gid === null || req.body.gid === undefined) {
+            res.send({msg: "No group id in payload"});
+        }
+        else {
+            var jobId = req.params.id;
+            var collection = db.get('experimentlist');
+            collection.find({ _id : jobId },{},function(e,docs){
+                if(docs.length>0) {
+                    collection.update({'_id': jobId}, {$set: {gid: req.body.gid}}, function(e, docs) {
+                        res.send({msg: "Experiment group updated", gid: req.body.gid});
+                    });
+                }
+                else {
+                    res.send({msg: "Job not found"});
+                }
+            });
+        }
 
     });
 };
