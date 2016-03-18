@@ -198,7 +198,8 @@ module.exports.set = function(app, public_path) {
     app.post('/job/start',ensureAuthorized, function (req, res) {
         //TODO: Validation of body
         var db = req.db;
-        var job = {running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}, images: []};
+        var job = {
+            running: true, test: false, date_start: new Date(), events: [], nr_events: 0, result: {}, images: [], gid: 0};
         if(req.body) {
             job.configuration = req.body;
         }
