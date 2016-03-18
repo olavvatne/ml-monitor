@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.0] - 2016-03-18
+### Added
+- Sidebar groupings
+- Experiments can be assigned to groups
+
+### Changed
+- Remove experiment from sidebar with groupings.
+
 ## [1.4.1] - 2016-02-20
 
 ### Fixed
