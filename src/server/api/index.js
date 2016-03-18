@@ -320,20 +320,23 @@ module.exports.set = function(app, public_path) {
     app.post('/job/:id/group',ensureAuthorized, function (req, res) {
         var db = req.db;
 
-        if(!req.body || ! req.body.gid) {
+        if(!req.body || req.body.gid === null || req.body.gid === undefined) {
             res.send({msg: "No group id in payload"});
         }
+        else {
+            var jobId = req.params.id;
+            var collection = db.get('experimentlist');
+            collection.find({ _id : jobId },{},function(e,docs){
+                if(docs.length>0) {
+                    collection.update({'_id': jobId}, {$set: {gid: req.body.gid}}, function(e, docs) {
+                        res.send({msg: "Experiment group updated", gid: req.body.gid});
+                    });
+                }
+                else {
+                    res.send({msg: "Job not found"});
+                }
+            });
+        }
 
-        var jobId = req.params.id;
-        var collection = db.get('experimentlist');
-        collection.find({ _id : jobId },{},function(e,docs){
-            if(docs.length>0) {
-                collection.update({'_id': jobId}, {$set: {gid: req.body.gid}});
-                res.send({msg: "Experiment group updated", gid: req.body.gid});
-            }
-            else {
-                res.send({msg: "Job not found"});
-            }
-        });
     });
 };

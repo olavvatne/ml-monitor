@@ -52,14 +52,14 @@ class Group extends React.Component {
                 method: 'get',
                 success: (success) => {
                     var exp = this.state.groupData;
-                    exp[group.gid] = {experiments: success, toggle: true };
+                    exp[group.gid] = success;
                     this.setState({groupData: exp});
                 }
             });
         }
         else {
             var exp = this.state.groupData;
-            exp[group.gid]["toggle"] = !exp[group.gid]["toggle"]
+            delete exp[group.gid];
             this.setState({groupData: exp});
         }
 
@@ -69,16 +69,14 @@ class Group extends React.Component {
         var list = this.props.groups.map((group) => {
             let handler = this._handleListClick.bind(this, group);
             var groupData = this.state.groupData[group.gid];
-            if(groupData === null || groupData === undefined) {
-                groupData = {experiments: null, toggle: false};
-            }
+
             return (
                 <li key={group.gid} >
                     <a onClick={handler}>{group.name}</a>
-                    {groupData.toggle ? <ul>
+                    {groupData !== undefined ? <ul>
                         <List
                             onListChange={this.props.onListChange}
-                            experiments={groupData.experiments}>
+                            experiments={groupData}>
                         </List>
                     </ul>: null}
                 </li>)
@@ -132,7 +130,10 @@ class Experiments extends React.Component {
                 </div>
                 <div id="content" className="mui-container-fluid">
 
-                    <ExperimentHistory experiment={this.state.display} onRemove={this._removeJob}/>
+                    <ExperimentHistory
+                        experiment={this.state.display}
+                        groups={this.state.groups}
+                        onRemove={this._removeJob}/>
 
                 </div>
             </div>

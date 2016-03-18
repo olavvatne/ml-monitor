@@ -176,7 +176,7 @@ footer {
 
   overflow-y: auto;
   ul {
-    margin-bottom: 150px;
+    margin-bottom: 20px;
     width:100%;
     list-style-type: none;
     padding-left: 0px !important;
@@ -302,4 +302,12 @@ $table-border: 7px;
     margin: 10px;
   }
 
+}
+
+.pl20 {
+  padding-left: 20px;
+}
+
+.pr10 {
+  padding-right: 10px;
 }
