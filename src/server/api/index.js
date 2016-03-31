@@ -162,11 +162,13 @@ module.exports.set = function(app, public_path) {
         var db = req.db;
         var jobId = req.params.id;
         var datapoints = req.body;
+        var test = datapoints.test;
+        var valid = datapoints.valid;
         var collection = db.get('experimentlist');
         collection.find({ _id : jobId },{},function(e,docs){
             if(docs.length>0) {
                 var job = docs[0];
-                collection.update({'_id': jobId}, {$set: {curve: datapoints}});
+                collection.update({'_id': jobId}, {$set: {curve: test, valid_curve: valid}});
                 res.send({msg: "Datapoints have been saved"});
             }
             else {
