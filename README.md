@@ -1,5 +1,17 @@
 # ML-Monitor
 
+###Features
+* Frontpage displays the currently running experiments.
+* Experiment page - List of all previous experiments.
+* Group experiments in categories.
+* Button for stop a running experiment. 
+* Button for debug a running experiment. (ML system displays a random assortment of model predictions)
+* Loss figure
+* Precision and validation curve
+* Stores all hyperparameters and result from an experiment.
+* Simple token based authentication, for securing certain API calls (Remove, stop, etc)
+* API for starting a new experiment, sending updates, checking stop and debugging status,  etc. Hooks used by ML system.
+
 ##Deploy 
 * merge develop into master 
 * login to server. 
