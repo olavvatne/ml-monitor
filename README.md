@@ -9,6 +9,7 @@
 * Loss figure
 * Precision and validation curve
 * Stores all hyperparameters and result from an experiment.
+* Display of all hyperparameters in tables. Tables are auto generated from JSON key/value pairs
 * Simple token based authentication, for securing certain API calls (Remove, stop, etc)
 * API for starting a new experiment, sending updates, checking stop and debugging status,  etc. Hooks used by ML system.
 
