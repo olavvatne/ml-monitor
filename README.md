@@ -53,6 +53,16 @@ $mongo
 >db.userlist.insert({"user": "ola", "password": "password", "token": "Long-random-string-of-your-choice"})
 ```
 
+* Finally, insert the default group, that new experiments are assigned:
+```bash
+>db.grouplist.insert({"name": "unassigned", "gid": "0", "date_created": new Date()})
+```
+
+* To start the system, run:
+```bash
+>npm run start
+```
+* The user token is should also be used when the machine learning system interact with the api. In the header of HTTP requests remember to insert "Bearer " + usertoken under Authorization.
 
 ##Deploy 
 * Merge develop into master 
