@@ -45,7 +45,6 @@ $mongo
 ```bash
 >db.createCollection('experimentlist')
 >db.createCollection('userlist')
->db.userlist.insert({"user": "ola", "password": "password", "token": "Long-random-string-of-your-choice"})
 > db.createCollection('grouplist')
 ```
 
@@ -53,6 +52,8 @@ $mongo
 ```bash
 >db.userlist.insert({"user": "ola", "password": "password", "token": "Long-random-string-of-your-choice"})
 ```
+
+
 ##Deploy 
 * Merge develop into master 
 * Login to server. 
