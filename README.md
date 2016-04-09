@@ -62,7 +62,7 @@ $mongo
 ```bash
 >npm run start
 ```
-* The user token is should also be used when the machine learning system interact with the api. In the header of HTTP requests remember to insert "Bearer " + usertoken under Authorization.
+* The user token should also be used when the machine learning system interact with the api. In the header of HTTP requests remember to insert "Authorization":"Bearer " + usertoken.
 
 ##Deploy 
 * Merge develop into master 
